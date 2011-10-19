@@ -44,6 +44,17 @@
     
     [self.view setBackgroundColor:[UIColor grayColor]];
     
+    //some text. Not important!
+    UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(20, 20, 280, 200)];
+    [lbl setText:@"Curabitur blandit tempus porttitor. Aenean lacinia bibendum nulla sed consectetur. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Donec ullamcorper nulla non metus auctor fringilla. Maecenas faucibus mollis interdum."];
+    [lbl setBackgroundColor:[UIColor clearColor]];
+    [lbl setNumberOfLines:0];
+    [lbl setLineBreakMode:UILineBreakModeWordWrap];
+    [self.view addSubview:lbl];
+    [lbl release];
+    
+    
+    //add button to share
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeInfoDark];
     [btn setFrame:CGRectMake(290, 430, 20, 20)];
     [btn setTintColor:[UIColor redColor]];
