@@ -2,12 +2,14 @@ Welcome to FTShare Objective C library for iOS development.
 
 Implementation Instructions:
 
-    Import SystemConfiguration, CFNetwork, MobileCoreServices, MEssageUI frameworks to your library
-    Create an Instance of FTShare on your Application Delegate
-    overwrite the method application:openURL:sourceApplication:annotation: on your Application Delegate
-    use the Application delegate FTShare instance everywhere in your app by:
-    - setUp the keys for each share components
-    - Implement the delgates
+* Import SystemConfiguration, CFNetwork, MobileCoreServices, MEssageUI frameworks to your library
+* Create an Instance of FTShare on your Application Delegate
+* Overwrite the method application:openURL:sourceApplication:annotation: on your Application Delegate
+* Use the Application delegate FTShare instance everywhere in your app by:
+    - setUp the keys for each share components (use config.h)
+    - Implement the delegates
+    - use shareViaFacebook/Twitter/Mail with the specific FTShareDataObject or
+    - use showActionSheetWithtitle:andOptions: implementing the Facebook/Twitter/MailShareData delegate 
 
 
 License:
