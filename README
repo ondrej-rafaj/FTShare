@@ -24,6 +24,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 Third Party references:
 
-- [facebook-ios-sdk](https://github.com/facebook/facebook-ios-sdk) 
-- [MGTwitterEngine](https://github.com/mattgemmell/MGTwitterEngine)
+- facebook-ios-sdk - https://github.com/facebook/facebook-ios-sdk
+- MGTwitterEngine - https://github.com/mattgemmell/MGTwitterEngine
 - Note that SBJson has been modified therefor may or may not work with your version. 
