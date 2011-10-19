@@ -10,7 +10,7 @@ Implementation Instructions:
     - Implement the delegates
     - use shareViaFacebook/Twitter/Mail with the specific FTShareDataObject or
     - use showActionSheetWithtitle:andOptions: implementing the Facebook/Twitter/MailShareData delegate 
-
+* on the app-info.plist add the "URL types". Forget to do so and your app will not respond effectively after the facebook login has completed
 
 License:
 
