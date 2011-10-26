@@ -925,6 +925,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "$(inherited) \"$(SRCROOT)/../**\"";
 				WRAPPER_EXTENSION = app;
 			};
@@ -951,6 +952,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "$(inherited) \"$(SRCROOT)/../**\"";
 				WRAPPER_EXTENSION = app;
 			};
