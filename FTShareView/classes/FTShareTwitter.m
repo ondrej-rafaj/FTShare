@@ -8,6 +8,9 @@
 
 #import "FTShareTwitter.h"
 
+#pragma mark --
+#pragma mark Data Type
+
 @implementation FTShareTwitterData 
 
 @synthesize message = _message;
@@ -27,7 +30,8 @@
 @end
 
 
-
+#pragma mark --
+#pragma mark Class
 
 @implementation FTShareTwitter
 

@@ -8,6 +8,8 @@
 
 #import "FTShareEmail.h"
 
+#pragma mark --
+#pragma mark Data Type
 
 @implementation FTShareEmailData
 
@@ -53,6 +55,8 @@
 @end
 
 
+#pragma mark --
+#pragma mark Class
 
 @implementation FTShareEmail
 

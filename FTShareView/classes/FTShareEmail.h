@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import <MessageUI/MessageUI.h>
 
+#pragma mark --
+#pragma mark Data Type
 
 @interface FTShareEmailData : NSObject {
     NSString *_subject;
@@ -29,7 +31,8 @@
 @end
 
 
-
+#pragma mark --
+#pragma mark Class
 
 @protocol FTShareEmailDelegate;
 @interface FTShareEmail : NSObject <MFMailComposeViewControllerDelegate, MFMailComposeViewControllerDelegate> {
@@ -43,6 +46,10 @@
 - (void)shareViaMail:(FTShareEmailData *)data;
 
 @end
+
+
+#pragma mark --
+#pragma mark Delegate
 
 @protocol FTShareEmailDelegate <NSObject>
 

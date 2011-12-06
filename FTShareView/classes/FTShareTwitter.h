@@ -12,7 +12,8 @@
 #import "SA_OAuthTwitterController.h"
 
 
-
+#pragma mark --
+#pragma mark Data Type
 
 @interface FTShareTwitterData : NSObject {
     NSString *_message;
@@ -23,6 +24,11 @@
 - (BOOL)isRequestValid;
 
 @end
+
+
+
+#pragma mark --
+#pragma mark Class
 
 
 @protocol FTShareTwitterDelegate;
@@ -38,6 +44,11 @@
 - (void)setUpTwitterWithConsumerKey:(NSString *)consumerKey secret:(NSString *)secret referencedController:(id)referencedController andDelegate:(id<FTShareTwitterDelegate>)delegate;
 - (void)shareViaTwitter:(FTShareTwitterData *)data;
 @end
+
+
+
+#pragma mark --
+#pragma mark Delegate
 
 @protocol FTShareTwitterDelegate <NSObject>
 

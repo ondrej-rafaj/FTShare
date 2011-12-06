@@ -8,6 +8,9 @@
 
 #import "FTShareFacebook.h"
 
+#pragma mark --
+#pragma mark Data Type
+
 @implementation FTShareFacebookData
 
 @synthesize message = _message;
@@ -58,16 +61,13 @@
 
 
 
-
+#pragma mark --
+#pragma mark Class
 
 @implementation FTShareFacebook
 
 @synthesize facebook = _facebook;
 @synthesize facebookDelegate = _facebookDelegate;
-
-#pragma mark --
-#pragma mark Facebook
-
 
 - (void)setUpFacebookWithAppID:(NSString *)appID referencedController:(id)referencedController andDelegate:(id<FTShareFacebookDelegate>)delegate {
     
@@ -87,6 +87,7 @@
 	// NSLog(@"Facebook expiration date: %@", _facebook.expirationDate);
 }
 
+
 - (void)setUpPermissions:(FTShareFacebookPermission)permission {
     NSMutableArray *options = [NSMutableArray array];
    
@@ -103,9 +104,11 @@
     }
 }
 
+
 - (void)authorize {
     [_facebook authorize:_permissions];
 }
+
 
 - (void)shareViaFacebook:(FTShareFacebookData *)data {
     if (![data isRequestValid]) {
@@ -211,6 +214,7 @@
     _params = nil;
 }
 
+/*
 #pragma mark Using Offline access
 
 - (BOOL)canUseOfflineAccess {
@@ -221,6 +225,8 @@
 	[[NSUserDefaults standardUserDefaults] setBool:offline forKey:@"FTShareCanUseOfflineAccess"];
 	[[NSUserDefaults standardUserDefaults] synchronize];
 }
+ 
+*/
 
 #pragma mark Facebook request delegate
 

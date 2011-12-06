@@ -10,6 +10,9 @@
 #import <Foundation/Foundation.h>
 #import "FBConnect.h"
 
+#pragma mark --
+#pragma mark Data Type
+
 typedef enum {
     FTShareFacebookPermissionNull       = 0 << 0,
     FTShareFacebookPermissionRead       = 1 << 0,
@@ -51,7 +54,8 @@ typedef enum {
 @end
 
 
-
+#pragma mark --
+#pragma mark Class
 
 @protocol FTShareFacebookDelegate;
 @interface FTShareFacebook : NSObject <FBRequestDelegate, FBSessionDelegate, FBDialogDelegate> {
@@ -72,7 +76,8 @@ typedef enum {
 
 
 
-
+#pragma mark --
+#pragma mark Delegate
 
 @end
 
