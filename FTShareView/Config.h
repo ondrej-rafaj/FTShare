@@ -11,8 +11,8 @@
 
 #warning Enter twitter and Facebook keys!
 
-#define kIKTwitterConsumerKey   @"yourTwitterConsumerKey"
-#define kIKTwiiterPasscode      @"yourTwitterPasscode"
+#define kIKTwitterConsumerKey   @"J3lGExzjOc3gi9fv5oMgA" //@"yourTwitterConsumerKey"
+#define kIKTwiiterPasscode      @"wkOKutYnXXpNnHZJvOfIRMo1sXoGZDFwHgpGuk4tY" //@"yourTwitterPasscode"
 
 #define kIKFacebookAppID        @"yourFacebookAppID"
 

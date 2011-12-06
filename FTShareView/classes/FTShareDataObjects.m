@@ -10,25 +10,6 @@
 
 #pragma mark Twitter Data Structure
 
-@implementation FTShareTwitterData 
-
-@synthesize message = _message;
-
-- (BOOL)isRequestValid {
-    BOOL valid = (self.message && [self.message length] > 0);
-    if (!valid) NSLog(@"Twitter request seams not valid");
-    return valid;
-}
-
-- (void)dealloc {
-    
-    [_message release], _message = nil;
-    [super dealloc];
-}
-
-@end
-
-
 #pragma mark Facebook Data Structure
 
 @implementation FTShareFacebookData

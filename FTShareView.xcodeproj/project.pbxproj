@@ -90,6 +90,7 @@
 		689529D3144EE15400074F22 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 689529D2144EE15400074F22 /* SystemConfiguration.framework */; };
 		689529D6144EE1B100074F22 /* AnyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 689529D5144EE1B100074F22 /* AnyViewController.m */; };
 		689529E7144EF3D600074F22 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 689529E6144EF3D600074F22 /* QuartzCore.framework */; };
+		A599D88D148E31BB00359F21 /* FTShareTwitter.m in Sources */ = {isa = PBXBuildFile; fileRef = A599D88C148E31BA00359F21 /* FTShareTwitter.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -278,6 +279,8 @@
 		689529D4144EE1B100074F22 /* AnyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnyViewController.h; sourceTree = "<group>"; };
 		689529D5144EE1B100074F22 /* AnyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnyViewController.m; sourceTree = "<group>"; };
 		689529E6144EF3D600074F22 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		A599D88B148E31BA00359F21 /* FTShareTwitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTShareTwitter.h; sourceTree = "<group>"; };
+		A599D88C148E31BA00359F21 /* FTShareTwitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTShareTwitter.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -318,7 +321,7 @@
 			children = (
 				689528F1144EE0C200074F22 /* ThirdParty */,
 				689527E9144ED91C00074F22 /* classes */,
-				689527B2144ED89A00074F22 /* FTShareView */,
+				689527B2144ED89A00074F22 /* Controllers */,
 				689527CA144ED89A00074F22 /* FTShareViewTests */,
 				689527AB144ED89A00074F22 /* Frameworks */,
 				689527A9144ED89A00074F22 /* Products */,
@@ -353,7 +356,7 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		689527B2144ED89A00074F22 /* FTShareView */ = {
+		689527B2144ED89A00074F22 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				689527BB144ED89A00074F22 /* FTAppDelegate.h */,
@@ -362,6 +365,7 @@
 				689529D5144EE1B100074F22 /* AnyViewController.m */,
 				689527B3144ED89A00074F22 /* Supporting Files */,
 			);
+			name = Controllers;
 			path = FTShareView;
 			sourceTree = "<group>";
 		};
@@ -403,6 +407,8 @@
 				689527EB144ED91C00074F22 /* FTShare.m */,
 				689527EC144ED91C00074F22 /* FTShareDataObjects.h */,
 				689527ED144ED91C00074F22 /* FTShareDataObjects.m */,
+				A599D88B148E31BA00359F21 /* FTShareTwitter.h */,
+				A599D88C148E31BA00359F21 /* FTShareTwitter.m */,
 			);
 			name = classes;
 			path = FTShareView/classes;
@@ -818,6 +824,7 @@
 				689529C7144EE0C200074F22 /* SA_OAuthTwitterController.m in Sources */,
 				689529C8144EE0C200074F22 /* SA_OAuthTwitterEngine.m in Sources */,
 				689529D6144EE1B100074F22 /* AnyViewController.m in Sources */,
+				A599D88D148E31BB00359F21 /* FTShareTwitter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

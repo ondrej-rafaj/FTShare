@@ -11,8 +11,6 @@
 @implementation FTShare
 
 @synthesize facebook = _facebook;
-@synthesize twitter = _twitter;
-@synthesize twitterDelegate = _twitterDelegate;
 @synthesize facebookDelegate = _facebookDelegate;
 @synthesize mailDelegate = _mailDelegate;
 
@@ -30,8 +28,8 @@
     if (self) {
         // Initialization code here.
         [self setReferencedController:controller];
+        _twitter = [[FTShareTwitter alloc] init];
         _twitterParams = nil;
-        _twitterDelegate = nil;
         
         _facebookParams = nil;
         _facebookGetParams = nil;
@@ -46,8 +44,6 @@
 
 - (void)dealloc {
     [_facebook release], _facebook = nil;
-    [_twitter release], _twitter = nil;
-    _twitterDelegate = nil;
     _facebookDelegate = nil;
     _mailDelegate = nil;
     _referencedController = nil;
@@ -97,108 +93,10 @@
  *
  */
 
-#pragma mark --
-#pragma mark Twitter
-
-// setting up twitter engine
 - (void)setUpTwitterWithConsumerKey:(NSString *)consumerKey secret:(NSString *)secret andDelegate:(id<FTShareTwitterDelegate>)delegate {
-    _twitter = [[SA_OAuthTwitterEngine alloc] initOAuthWithDelegate:self];
-    self.twitterDelegate = delegate;
-    self.twitter.consumerKey = consumerKey;  
-    self.twitter.consumerSecret = secret;
-    [self.twitter clearAccessToken];
-    self.twitterParams = nil;
+    [_twitter setUpTwitterWithConsumerKey:consumerKey secret:secret referencedController:_referencedController andDelegate:delegate];
 }
 
-- (void)shareViaTwitter:(FTShareTwitterData *)data {
-    self.twitterParams = data;
-    if(![self.twitter isAuthorized]){  
-        UIViewController *controller = [SA_OAuthTwitterController controllerToEnterCredentialsWithTwitterEngine:self.twitter delegate:self];  
-        
-        if (controller && self.referencedController){  
-            [controller setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
-            [(UIViewController *)self.referencedController presentModalViewController:controller animated:YES];
-        }
-    }
-    else {
-        if (![self.twitterParams isRequestValid]) return;
-        [self.twitter sendUpdate:self.twitterParams.message];
-    }
-}
-
-#pragma mark SA_OAuthTwitterEngineDelegate 
-
-- (void) storeCachedTwitterOAuthData: (NSString *) data forUsername: (NSString *) username {  
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];  
-    
-    [defaults setObject: data forKey: @"twitterAuthData"];  
-    [defaults synchronize];  
-}
-
-- (void)clearCachedTwitterOAuthData {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];  
-    
-    [defaults setObject: nil forKey: @"twitterAuthData"];  
-    [defaults synchronize];     
-}
-
-- (NSString *) cachedTwitterOAuthDataForUsername: (NSString *) username {  
-    return [[NSUserDefaults standardUserDefaults] objectForKey: @"twitterAuthData"];  
-}
-
-#pragma mark TwitterEngineDelegate  
-- (void) requestSucceeded: (NSString *) requestIdentifier {  
-    NSLog(@"Request %@ succeeded", requestIdentifier); 
-    if ([self.twitterDelegate respondsToSelector:@selector(twitterDidPost:)]) {
-        [self.twitterDelegate twitterDidPost:nil];
-    }
-    
-    self.twitter = nil;
-    self.twitterDelegate = nil;
-    self.twitterDelegate = nil;
-}  
-
-- (void) requestFailed: (NSString *) requestIdentifier withError: (NSError *) error {  
-    NSLog(@"Request %@ failed with error: %@", requestIdentifier, error);
-    if ([self.twitterDelegate respondsToSelector:@selector(twitterDidPost:)]) {
-        [self.twitterDelegate twitterDidPost:error];
-    }
-    
-    self.twitter = nil;
-    self.twitterDelegate = nil;
-    self.twitterDelegate = nil;
-}
-
-#pragma mark Twitter login
-
-- (void)OAuthTwitterController:(SA_OAuthTwitterController *)controller authenticatedWithUsername:(NSString *)username {
-    if ([self.twitterDelegate respondsToSelector:@selector(twitterDidLogin:)]) {
-        [self.twitterDelegate twitterDidLogin:nil];
-    }
-    [self shareViaTwitter:self.twitterParams];
-}
-
-- (void)OAuthTwitterControllerFailed:(SA_OAuthTwitterController *)controller {
-    NSError *error = [NSError errorWithDomain:@"com.fuerteint.FTShare" code:400 userInfo:[NSDictionary dictionaryWithObject:@"Couldn't share with twitter" forKey:@"description"]];
-    if ([self.twitterDelegate respondsToSelector:@selector(twitterDidLogin:)]) {
-        [self.twitterDelegate twitterDidLogin:error];
-    }
-    
-    self.twitter = nil;
-    self.twitterDelegate = nil;
-    self.twitterDelegate = nil;
-}
-
-- (void)OAuthTwitterControllerCanceled:(SA_OAuthTwitterController *)controller {
-    NSError *error = [NSError errorWithDomain:@"com.fuerteint.FTShare" code:400 userInfo:[NSDictionary dictionaryWithObject:@"Twitter Controller Canceled" forKey:@"description"]];
-    if ([self.twitterDelegate respondsToSelector:@selector(twitterDidLogin:)]) {
-        [self.twitterDelegate twitterDidLogin:error];
-    }
-    
-    self.twitter = nil;
-    self.twitterDelegate = nil;
-    self.twitterDelegate = nil;
-}
 
 /**
  *
@@ -423,10 +321,7 @@
     }
     else  if ([btnText isEqualToString:@"Twitter"]) {
         //implement Twitter
-        if (self.twitterDelegate && [self.twitterDelegate respondsToSelector:@selector(twitterData)]) {
-            FTShareTwitterData *data = [self.twitterDelegate twitterData];
-            [self shareViaTwitter:data];
-        }
+            [_twitter shareViaTwitter:nil];
     }
 }
 

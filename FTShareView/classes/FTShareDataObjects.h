@@ -9,17 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "UIImage+Resize.h"
 
-//Use http://developers.facebook.com/docs/reference/dialogs/feed/ to see how to use those parameters
 
-@interface FTShareTwitterData : NSObject {
-    NSString *_message;
-}
-
-@property (nonatomic, retain) NSString *message;
-
-- (BOOL)isRequestValid;
-
-@end
 
 @interface FTShareFacebookData : NSObject {
     NSString *_message;
