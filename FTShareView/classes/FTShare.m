@@ -7,7 +7,6 @@
 //
 
 #import "FTShare.h"
-#import "FTLang.h"
 
 @implementation FTShare
 
@@ -275,7 +274,7 @@
 }
 
 - (void)dialogDidNotComplete:(FBDialog *)dialog {
-    NSDictionary *dict = [NSDictionary dictionaryWithObjects: [NSArray arrayWithObjects:FTLangGet(@"Unknown error occured"), nil] forKeys:[NSArray arrayWithObjects:@"description", nil]];
+    NSDictionary *dict = [NSDictionary dictionaryWithObjects: [NSArray arrayWithObjects:@"Unknown error occured", nil] forKeys:[NSArray arrayWithObjects:@"description", nil]];
     NSError *error= [NSError errorWithDomain:@"com.fuerte.FTShare" code:400 userInfo:dict];
     if (self.facebookDelegate && [self.facebookDelegate respondsToSelector:@selector(facebookDidPost:)]) {
         [self.facebookDelegate facebookDidPost:error];
