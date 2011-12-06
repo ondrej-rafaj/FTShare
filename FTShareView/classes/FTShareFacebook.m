@@ -21,6 +21,7 @@
 @synthesize description = _description;
 @synthesize uploadImage = _uploadImage;
 @synthesize type = _type;
+@synthesize httpType = _httpType;
 
 
 
@@ -43,6 +44,45 @@
     if (self.uploadImage && !CGSizeEqualToSize(self.uploadImage.size, CGSizeZero)) [dict setObject:self.uploadImage forKey:@"uploadImage"];
     
     return dict;
+}
+
+- (NSString *)graphPathForType {
+    NSString *path;
+    switch (self.type) {
+        case FTShareFacebookRequestTypePost:
+            path = @"me/feed";
+            break;
+        case FTShareFacebookRequestTypeAlbum:
+            path = @"me/photos";
+            break;
+        case FTShareFacebookRequestTypeFriends:
+            path = @"me/friends";
+            break;
+        case FTShareFacebookRequestTypeOther:
+        default:
+            path = nil; // leave nill as delegate will fill with path
+            break;
+    }
+    return path;
+}
+
+- (NSString *)graphHttpTypeString {
+    NSString *path;
+    switch (self.httpType) {
+        case FTShareFacebookHttpTypeGet:
+            path = @"GET";
+            break;
+        case FTShareFacebookHttpTypePost:
+            path = @"POST";
+            break;
+        case FTShareFacebookHttpTypeDelete:
+            path = @"DELETE";
+            break;
+        default:
+            path = nil; // leave nill as delegate will fill with path
+            break;
+    }
+    return path;    
 }
 
 - (void)dealloc {
@@ -110,6 +150,9 @@
 }
 
 
+#pragma mark Requests
+
+
 - (void)shareViaFacebook:(FTShareFacebookData *)data {
     if (![data isRequestValid]) {
         if (self.facebookDelegate && [self.facebookDelegate respondsToSelector:@selector(facebookShareData)]) {
@@ -117,27 +160,31 @@
             if (![data isRequestValid]) [NSException raise:@"Facebook cannot post empy data" format:nil];
         }
     }
-
-    
     _params = data;
     if (![_facebook isSessionValid]) {
         [self authorize];
     }
-    else {
-        if (![_params isRequestValid]) return;
-        UIImage *img = _params.uploadImage;
-        if (img && [img isKindOfClass:[UIImage class]]) {
-            [_facebook requestWithGraphPath:@"me/photos" andParams:[_params dictionaryFromParams] andHttpMethod:@"POST" andDelegate:self];
-        }
-        else {
-            [_facebook requestWithGraphPath:@"me/feed" andParams:[_params dictionaryFromParams] andHttpMethod:@"POST" andDelegate:self];
-            //[_facebook dialog:@"feed" andParams:[_params dictionaryFromParams] andDelegate:self]; 
+    
+    // check http method
+    NSString *httpMethod = [_params graphHttpTypeString];
+    
+    //check path
+    NSString *path = [_params graphPathForType];
+    if (!path) {
+        if (self.facebookDelegate && [self.facebookDelegate respondsToSelector:@selector(facebookPathForRequestofMethodType:)]) {
+            path = [self.facebookDelegate facebookPathForRequestofMethodType:&httpMethod];
+            if (!path) [NSException raise:@"Facebook request with not type will have no path either" format:nil];
         }
     }
+    
+    [_facebook requestWithGraphPath:path andParams:[_params dictionaryFromParams] andHttpMethod:httpMethod andDelegate:self];
+    
 }
 
 
-- (void)getFacebookData:(NSString *)message ofType:(FTShareFacebookGetType)type withDelegate:(id <FBRequestDelegate>)delegate {
+
+
+- (void)getFacebookData:(NSString *)message ofType:(FTShareFacebookRequestType)type withDelegate:(id <FBRequestDelegate>)delegate {
 	_params = nil;
     _params.message = message;
     _params.type = type;

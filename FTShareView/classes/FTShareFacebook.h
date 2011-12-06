@@ -20,11 +20,17 @@ typedef enum {
 } FTShareFacebookPermission;
 
 typedef enum {
-    FTShareFacebookGetTypeNull,
-    FTShareFacebookGetTypeName,
-    FTShareFacebookGetTypePhoto
-} FTShareFacebookGetType;
+    FTShareFacebookRequestTypePost,
+    FTShareFacebookRequestTypeFriends,
+    FTShareFacebookRequestTypeAlbum,
+    FTShareFacebookRequestTypeOther
+} FTShareFacebookRequestType;
 
+typedef enum {
+    FTShareFacebookHttpTypeGet,
+    FTShareFacebookHttpTypePost,
+    FTShareFacebookHttpTypeDelete,
+} FTShareFacebookHttpType;
 
 @interface FTShareFacebookData : NSObject {
     NSString *_message;
@@ -33,7 +39,8 @@ typedef enum {
     NSString *_caption;
     NSString *_picture;
     NSString *_description;
-    FTShareFacebookGetType _type;
+    FTShareFacebookRequestType _type;
+    FTShareFacebookHttpType _httpType;
     
     UIImage  *_uploadImage;
     
@@ -46,9 +53,12 @@ typedef enum {
 @property (nonatomic, retain) NSString *picture;
 @property (nonatomic, retain) NSString *description;
 @property (nonatomic, retain) UIImage *uploadImage;
-@property (nonatomic, assign) FTShareFacebookGetType type;
+@property (nonatomic, assign) FTShareFacebookRequestType type;
+@property (nonatomic, assign) FTShareFacebookHttpType httpType;
 
 - (NSMutableDictionary *)dictionaryFromParams;
+- (NSString *)graphPathForType;
+- (NSString *)graphHttpTypeString;
 - (BOOL)isRequestValid;
 
 @end
@@ -86,6 +96,7 @@ typedef enum {
 @optional
 
 - (FTShareFacebookData *)facebookShareData;
+- (NSString *)facebookPathForRequestofMethodType:(NSString **)httpMethod;
 - (void)facebookLoginDialogController:(UIViewController *)controller;
 - (void)facebookDidLogin:(NSError *)error;
 - (void)facebookDidPost:(NSError *)error;

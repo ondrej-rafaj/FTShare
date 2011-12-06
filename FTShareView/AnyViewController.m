@@ -36,6 +36,19 @@
 
 }
 
+- (void)getUSerFriends {
+    FTShare *share = [self shareInstance];
+    FTShareFacebookData *fbData = [[FTShareFacebookData alloc] init];
+    [fbData setType:FTShareFacebookRequestTypeFriends];
+    [fbData setHttpType:FTShareFacebookHttpTypeGet];
+    [share shareViaFacebook:fbData];
+}
+
+- (void)testFBWithNoPath {
+    FTShare *share = [self shareInstance];
+    [share shareViaFacebook:nil];
+}
+
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
@@ -62,6 +75,18 @@
     [btn addTarget:self action:@selector(share:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn];
     
+    UIButton *btn1 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [btn1 setTitle:@"friends" forState:UIControlStateNormal];
+    [btn1 setFrame:CGRectMake(10, 430, 100, 20)];
+    [btn1 addTarget:self action:@selector(getUSerFriends) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn1];
+    
+    UIButton *btn2 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [btn2 setTitle:@"no path" forState:UIControlStateNormal];
+    [btn2 setFrame:CGRectMake(150, 430, 100, 20)];
+    [btn2 addTarget:self action:@selector(testFBWithNoPath) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn2];
+    
 }
 
 #pragma mark FTShare Facebook
@@ -72,8 +97,19 @@
 - (FTShareFacebookData *)facebookShareData {
     FTShareFacebookData *data = [[FTShareFacebookData alloc] init];
     [data setLink:@"http://www.fuerteint.com"];
-    [data setCaption:@"This is test using Graph"];
+    [data setCaption:@"Latest test using Graph"];
+    [data setType:FTShareFacebookRequestTypePost];
+    [data setHttpType:FTShareFacebookHttpTypePost];
     return [data autorelease];
+}
+
+/**
+ * Called if facebook request had no type. Provide path like "me/feeds" and override httpMethod with GET, POST or DELETE
+ *
+ */
+- (NSString *)facebookPathForRequestofMethodType:(NSString **)httpMethod {
+    *httpMethod = @"GET";
+    return @"me/friends";
 }
 
 /**
@@ -90,6 +126,14 @@
  */
 - (void)facebookDidPost:(NSError *)error {
     NSLog(@"Facebook has %@ posted with Error: [%@]",(error == nil)? @"" : @"NOT", [error localizedDescription]);
+}
+
+/**
+ * Called when FAcebook finishes a request with data.
+ *
+ */
+- (void)facebookDidReceiveResponse:(id)response {
+    NSLog(@"Facebook Response: %@", [response description]);
 }
 
 #pragma mark FTShare Twitter
