@@ -7,6 +7,7 @@
 //
 
 #import "FTShare.h"
+#import "FTLang.h"
 
 @implementation FTShare
 
@@ -217,18 +218,26 @@
     [defaults setObject:appID forKey:@"FTShareFBAppID"];
     [defaults synchronize];
     
-	if ([defaults objectForKey:@"FBAccessTokenKey"] 
-        && [defaults objectForKey:@"FBExpirationDateKey"]) {
+	if ([defaults objectForKey:@"FBAccessTokenKey"] && [defaults objectForKey:@"FBExpirationDateKey"]) {
         self.facebook.accessToken = [defaults objectForKey:@"FBAccessTokenKey"];
         self.facebook.expirationDate = [defaults objectForKey:@"FBExpirationDateKey"];
 	}
     self.facebookParams = nil;
+	NSLog(@"Facebook expiration date: %@", self.facebook.expirationDate);
+}
+
+- (void)facebookLogin {
+	[self.facebook authorize:[NSArray arrayWithObjects:@"offline_access", @"read_stream", @"read_friendlists", @"read_insights", @"user_about_me", nil]];
+}
+
+- (void)facebookPublishLogin {
+	[self.facebook authorize:[NSArray arrayWithObjects:@"publish_stream", nil]];
 }
 
 - (void)shareViaFacebook:(FTShareFacebookData *)data {
     self.facebookParams = data;
     if (![self.facebook isSessionValid]) {
-        [self.facebook authorize:[NSArray arrayWithObjects:@"publish_stream", @"read_stream", @"read_friendlists", @"read_insights", nil]];
+        [self facebookPublishLogin];
     }
     else {
         if (![self.facebookParams isRequestValid]) return;
@@ -242,14 +251,14 @@
     }
 }
 
-- (void)getFacebookData:(FTShareFacebookGetData *)data {
+- (void)getFacebookData:(FTShareFacebookGetData *)data withDelegate:(id <FBRequestDelegate>)delegate {
 	self.facebookGetParams = data;
 	if (![self.facebook isSessionValid]) {
-        [self.facebook authorize:[NSArray arrayWithObjects:@"publish_stream", @"read_stream", @"read_friendlists", @"read_insights", nil]];
+        [self facebookLogin];
     }
     else {
-        if (![self.facebookParams isRequestValid]) return;
-        [self.facebook requestWithGraphPath:@"me/photos" andParams:[self.facebookGetParams dictionaryFromParams] andHttpMethod:@"POST" andDelegate:self];
+        //if (![self.facebookParams isRequestValid]) return;
+        [self.facebook requestWithGraphPath:@"me/friends" andParams:[self.facebookGetParams dictionaryFromParams] andHttpMethod:@"POST" andDelegate:self];
 	}
 }
 
@@ -266,8 +275,7 @@
 }
 
 - (void)dialogDidNotComplete:(FBDialog *)dialog {
-    NSDictionary *dict = [NSDictionary dictionaryWithObjects: [NSArray arrayWithObjects:@"Unknown error occured", nil]
-                                                     forKeys:[NSArray arrayWithObjects:@"description", nil]];
+    NSDictionary *dict = [NSDictionary dictionaryWithObjects: [NSArray arrayWithObjects:FTLangGet(@"Unknown error occured"), nil] forKeys:[NSArray arrayWithObjects:@"description", nil]];
     NSError *error= [NSError errorWithDomain:@"com.fuerte.FTShare" code:400 userInfo:dict];
     if (self.facebookDelegate && [self.facebookDelegate respondsToSelector:@selector(facebookDidPost:)]) {
         [self.facebookDelegate facebookDidPost:error];
@@ -313,15 +321,32 @@
     self.facebookParams = nil;
 }
 
-#pragma mark FAcebook REquest delegate
+#pragma mark Using Offline access
+
+- (BOOL)canUseOfflineAccess {
+	return [[NSUserDefaults standardUserDefaults] boolForKey:@"FTShareCanUseOfflineAccess"];
+}
+
+- (void)setCanUseOfflineAccess:(BOOL)offline {
+	[[NSUserDefaults standardUserDefaults] setBool:offline forKey:@"FTShareCanUseOfflineAccess"];
+	[[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+#pragma mark Facebook request delegate
+
+- (void)request:(FBRequest *)request didLoad:(id)result {
+	NSLog(@"FB Result: %@", result);
+}
 
 - (void)request:(FBRequest *)request didReceiveResponse:(NSURLResponse *)response {
+	NSLog(@"FB Result: %@", response);
     if (self.facebookDelegate && [self.facebookDelegate respondsToSelector:@selector(facebookDidPost:)]) {
         [self.facebookDelegate facebookDidPost:nil];
     }
 }
 
 - (void)request:(FBRequest *)request didFailWithError:(NSError *)error {
+	NSLog(@"FB Result: %@", error);
     if (self.facebookDelegate && [self.facebookDelegate respondsToSelector:@selector(facebookDidPost:)]) {
         [self.facebookDelegate facebookDidPost:error];
     }
