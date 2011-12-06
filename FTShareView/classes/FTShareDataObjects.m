@@ -12,52 +12,7 @@
 
 #pragma mark Facebook Data Structure
 
-@implementation FTShareFacebookData
 
-@synthesize message = _message;
-@synthesize link = _link;
-@synthesize name = _name;
-@synthesize caption = _caption;
-@synthesize picture = _picture;
-@synthesize description = _description;
-@synthesize uploadImage = _uploadImage;
-
-
-
-- (BOOL)isRequestValid {
-    BOOL isValidMessage = (self.message && [self.message length] > 0);
-    BOOL isValidImage = (!self.uploadImage || (self.uploadImage && !CGSizeEqualToSize(self.uploadImage.size, CGSizeZero)));
-    BOOL valid = (isValidMessage || isValidImage);
-    if (!valid) NSLog(@"Facebook request seams not valid");
-    return valid;
-}
-
-- (NSMutableDictionary *)dictionaryFromParams {
-    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-    if (self.message) [dict setObject:self.message forKey:@"message"];
-    if (self.link) [dict setObject:self.link forKey:@"link"];
-	if (self.name) [dict setObject:self.name forKey:@"name"];
-    if (self.caption) [dict setObject:self.caption forKey:@"caption"];
-    if (self.picture) [dict setObject:self.picture forKey:@"picture"];
-    if (self.description) [dict setObject:self.description forKey:@"description"];
-    if (self.uploadImage && !CGSizeEqualToSize(self.uploadImage.size, CGSizeZero)) [dict setObject:self.uploadImage forKey:@"uploadImage"];
-    
-    return dict;
-}
-
-- (void)dealloc {
-    
-    [_message release], _message = nil;
-    [_link release], _link = nil;
-    [_name release], _name = nil;
-    [_caption release], _caption = nil;
-    [_picture release], _picture = nil;
-    [_description release], _description = nil;
-    [_uploadImage release], _uploadImage = nil;
-    [super dealloc];
-}
-
-@end
 
 
 @implementation FTShareFacebookGetData

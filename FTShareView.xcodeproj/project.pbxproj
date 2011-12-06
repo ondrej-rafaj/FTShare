@@ -91,6 +91,7 @@
 		689529D6144EE1B100074F22 /* AnyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 689529D5144EE1B100074F22 /* AnyViewController.m */; };
 		689529E7144EF3D600074F22 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 689529E6144EF3D600074F22 /* QuartzCore.framework */; };
 		A599D88D148E31BB00359F21 /* FTShareTwitter.m in Sources */ = {isa = PBXBuildFile; fileRef = A599D88C148E31BA00359F21 /* FTShareTwitter.m */; };
+		A599D890148E3DFC00359F21 /* FTShareFacebook.m in Sources */ = {isa = PBXBuildFile; fileRef = A599D88F148E3DFC00359F21 /* FTShareFacebook.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -281,6 +282,8 @@
 		689529E6144EF3D600074F22 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		A599D88B148E31BA00359F21 /* FTShareTwitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTShareTwitter.h; sourceTree = "<group>"; };
 		A599D88C148E31BA00359F21 /* FTShareTwitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTShareTwitter.m; sourceTree = "<group>"; };
+		A599D88E148E3DFC00359F21 /* FTShareFacebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTShareFacebook.h; sourceTree = "<group>"; };
+		A599D88F148E3DFC00359F21 /* FTShareFacebook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTShareFacebook.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -409,6 +412,8 @@
 				689527ED144ED91C00074F22 /* FTShareDataObjects.m */,
 				A599D88B148E31BA00359F21 /* FTShareTwitter.h */,
 				A599D88C148E31BA00359F21 /* FTShareTwitter.m */,
+				A599D88E148E3DFC00359F21 /* FTShareFacebook.h */,
+				A599D88F148E3DFC00359F21 /* FTShareFacebook.m */,
 			);
 			name = classes;
 			path = FTShareView/classes;
@@ -825,6 +830,7 @@
 				689529C8144EE0C200074F22 /* SA_OAuthTwitterEngine.m in Sources */,
 				689529D6144EE1B100074F22 /* AnyViewController.m in Sources */,
 				A599D88D148E31BB00359F21 /* FTShareTwitter.m in Sources */,
+				A599D890148E3DFC00359F21 /* FTShareFacebook.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

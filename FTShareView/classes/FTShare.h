@@ -16,9 +16,10 @@
 #import <Foundation/Foundation.h>
 #import <MessageUI/MessageUI.h>
 #import "FTShareDataObjects.h"
-#import "FBConnect.h"
+
 
 #import "FTShareTwitter.h"
+#import "FTShareFacebook.h"
 
 
 enum {
@@ -28,26 +29,21 @@ enum {
 };
 typedef NSUInteger FTShareOptions;
 
-@protocol FTShareFacebookDelegate;
+
 @protocol FTShareMailDelegate;
 
-@interface FTShare : NSObject <MFMailComposeViewControllerDelegate, FBRequestDelegate, FBSessionDelegate, FBDialogDelegate, MFMailComposeViewControllerDelegate, UIActionSheetDelegate> {
+@interface FTShare : NSObject <MFMailComposeViewControllerDelegate, MFMailComposeViewControllerDelegate, UIActionSheetDelegate> {
     
-    FTShareTwitter *_twitter;
+    FTShareTwitter *_twitterEngine;
+    FTShareFacebook *_facebookEngine;
     
-	Facebook *_facebook;
-    id <FTShareFacebookDelegate> _facebookDelegate;
     id <FTShareMailDelegate> _mailDelegate;
     id _referencedController;
-    
-    FTShareFacebookData *_facebookParams;
-    FTShareFacebookGetData *_facebookGetParams;
-    
-    
 }
 
 @property (nonatomic, retain) Facebook *facebook;
-@property (nonatomic, assign) id<FTShareFacebookDelegate> facebookDelegate;
+
+
 @property (nonatomic, assign) id<FTShareMailDelegate> mailDelegate;
 
 @property (nonatomic, assign) id referencedController;
@@ -62,40 +58,21 @@ typedef NSUInteger FTShareOptions;
 - (void)setUpTwitterWithConsumerKey:(NSString *)consumerKey secret:(NSString *)secret andDelegate:(id<FTShareTwitterDelegate>)delegate;
 - (void)shareViaTwitter:(FTShareTwitterData *)data;
 
-- (void)setUpFacebookWithAppID:(NSString *)appID andDelegate:(id<FTShareFacebookDelegate>)delegate;
-- (void)facebookLogin;
+
+
+- (void)setUpFacebookWithAppID:(NSString *)appID permissions:(FTShareFacebookPermission)permissions andDelegate:(id<FTShareFacebookDelegate>)delegate;
+//- (void)facebookLogin;
 - (void)shareViaFacebook:(FTShareFacebookData *)data;
-- (void)getFacebookData:(FTShareFacebookGetData *)data withDelegate:(id <FBRequestDelegate>)delegate;
-- (BOOL)canUseOfflineAccess;
-- (void)setCanUseOfflineAccess:(BOOL)offline;
+//- (void)getFacebookData:(FTShareFacebookGetData *)data withDelegate:(id <FBRequestDelegate>)delegate;
+//- (BOOL)canUseOfflineAccess;
+//- (void)setCanUseOfflineAccess:(BOOL)offline;
 
 - (void)shareViaMail:(FTShareMailData *)data;
 
 @end
 
 
-@protocol FTShareFacebookDelegate <NSObject>
 
-@optional
-
-- (FTShareFacebookData *)facebookShareData;
-- (void)facebookLoginDialogController:(UIViewController *)controller;
-- (void)facebookDidLogin:(NSError *)error;
-- (void)facebookDidPost:(NSError *)error;
-
-@end
-
-
-@protocol FTShareFacebookGetDelegate <NSObject>
-
-@optional
-
-- (FTShareFacebookData *)facebookShareData;
-- (void)facebookLoginDialogController:(UIViewController *)controller;
-- (void)facebookDidLogin:(NSError *)error;
-- (void)facebookDidPost:(NSError *)error;
-
-@end
 
 
 @protocol FTShareMailDelegate <NSObject>

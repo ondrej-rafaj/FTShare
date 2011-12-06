@@ -64,9 +64,7 @@
         if (self.twitterDelegate && [self.twitterDelegate respondsToSelector:@selector(twitterData)]) {
             data = [self.twitterDelegate twitterData];
         }
-        else {
-            [NSException raise:@"Twitter cannot post empy data" format:nil];
-        }
+        if (!data) [NSException raise:@"Twitter cannot post empy data" format:nil];
     }
     _twitterParams = data;
     if(![_twitter isAuthorized]){  

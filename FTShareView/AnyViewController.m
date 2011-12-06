@@ -23,7 +23,7 @@
     
     // set up sharing components
     [appDel.share setUpTwitterWithConsumerKey:kIKTwitterConsumerKey secret:kIKTwiiterPasscode andDelegate:self];
-    [appDel.share setUpFacebookWithAppID:kIKFacebookAppID andDelegate:self];
+    [appDel.share setUpFacebookWithAppID:kIKFacebookAppID permissions:FTShareFacebookPermissionRead|FTShareFacebookPermissionPublish andDelegate:self];
     [appDel.share setMailDelegate:self];
     
     return appDel.share;
@@ -42,7 +42,7 @@
 {
     [super viewDidLoad];
     
-    [self.view setBackgroundColor:[UIColor grayColor]];
+    [self.view setBackgroundColor:[UIColor whiteColor]];
     
     //some text. Not important!
     UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(20, 20, 280, 200)];
@@ -72,7 +72,7 @@
 - (FTShareFacebookData *)facebookShareData {
     FTShareFacebookData *data = [[FTShareFacebookData alloc] init];
     [data setLink:@"http://www.fuerteint.com"];
-    [data setCaption:@"Crazy for iOS apps!"];
+    [data setCaption:@"This is test using Graph"];
     return [data autorelease];
 }
 

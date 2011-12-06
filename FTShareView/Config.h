@@ -14,6 +14,6 @@
 #define kIKTwitterConsumerKey   @"J3lGExzjOc3gi9fv5oMgA" //@"yourTwitterConsumerKey"
 #define kIKTwiiterPasscode      @"wkOKutYnXXpNnHZJvOfIRMo1sXoGZDFwHgpGuk4tY" //@"yourTwitterPasscode"
 
-#define kIKFacebookAppID        @"yourFacebookAppID"
+#define kIKFacebookAppID        @"219306811462394" //@"yourFacebookAppID"
 
 #endif
