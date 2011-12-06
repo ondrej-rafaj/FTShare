@@ -12,12 +12,9 @@
 
 @synthesize facebook;
 
-@synthesize mailDelegate = _mailDelegate;
+
 
 @synthesize referencedController = _referencedController;
-@synthesize facebookParams = _facebookParams;
-@synthesize facebookGetParams = _facebookGetParams;
-@synthesize twitterParams = _twitterParams;
 
 
 #pragma mark Initialization
@@ -29,8 +26,11 @@
         // Initialization code here.
         [self setReferencedController:controller];
         _twitterEngine = [[FTShareTwitter alloc] init];
+        
         _facebookEngine = [[FTShareFacebook alloc] init];
         self.facebook = nil;
+        
+        _emailEngine = [[FTShareEmail alloc] init];
     }
     
     return self;
@@ -41,12 +41,53 @@
 - (void)dealloc {
     [_facebookEngine release], _facebookEngine = nil;
     [_twitterEngine release], _twitterEngine = nil;
+    [_emailEngine release], _emailEngine = nil;
     
-    
-    _mailDelegate = nil;
     _referencedController = nil;
     [super dealloc];
 }
+
+
+
+#pragma mark Twitter section
+
+- (void)setUpTwitterWithConsumerKey:(NSString *)consumerKey secret:(NSString *)secret andDelegate:(id<FTShareTwitterDelegate>)delegate {
+    [_twitterEngine setUpTwitterWithConsumerKey:consumerKey secret:secret referencedController:_referencedController andDelegate:delegate];
+}
+
+- (void)shareViaTwitter:(FTShareTwitterData *)data {
+    [_twitterEngine shareViaTwitter:data];
+}
+
+
+#pragma mark Facebook section
+
+- (void)setUpFacebookWithAppID:(NSString *)appID permissions:(FTShareFacebookPermission)permissions andDelegate:(id<FTShareFacebookDelegate>)delegate {
+    [_facebookEngine setUpFacebookWithAppID:appID referencedController:_referencedController andDelegate:delegate];
+    self.facebook = _facebookEngine.facebook;
+    [_facebookEngine setUpPermissions:permissions];
+}
+
+- (void)shareViaFacebook:(FTShareFacebookData *)data {
+    [_facebookEngine shareViaFacebook:data];
+}
+
+#pragma mark Email section
+
+- (void)setUpEmailWithDelegate:(id<FTShareEmailDelegate>)delegate {
+    [_emailEngine setUpEmailWithRefencedController:_referencedController andDlelegate:delegate];
+}
+
+- (void)shareViaEmail:(FTShareEmailData *)data {
+    [_emailEngine shareViaMail:data];
+}
+
+
+
+
+
+#pragma mark --
+#pragma mark UIActionSheet
 
 /**
  * Use this method, then implement the delegates
@@ -81,93 +122,13 @@
     [actionSheet release];
 }
 
-
-/**
- *
- * Twitter Section
- *
- */
-
-- (void)setUpTwitterWithConsumerKey:(NSString *)consumerKey secret:(NSString *)secret andDelegate:(id<FTShareTwitterDelegate>)delegate {
-    [_twitterEngine setUpTwitterWithConsumerKey:consumerKey secret:secret referencedController:_referencedController andDelegate:delegate];
-}
-
-
-/**
- *
- * Facebook Section
- *
- */
-
-- (void)setUpFacebookWithAppID:(NSString *)appID permissions:(FTShareFacebookPermission)permissions andDelegate:(id<FTShareFacebookDelegate>)delegate {
-    [_facebookEngine setUpFacebookWithAppID:appID referencedController:_referencedController andDelegate:delegate];
-    self.facebook = _facebookEngine.facebook;
-    [_facebookEngine setUpPermissions:permissions];
-}
-
-
-
-/**
- *
- * Mail Section
- *
- */
-
-#pragma mark --
-#pragma mark Mail
-- (void)shareViaMail:(FTShareMailData *)data {
-    if (![data isRequestValid]) return;
-
-	MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init]; 
-	mc.mailComposeDelegate = self;  
-	
-	[mc setSubject:data.subject];  
-	
-	[mc setMessageBody:data.plainBody isHTML:NO];
-    if (data.htmlBody && [data.htmlBody length] > 0) {
-        [mc setMessageBody:data.htmlBody isHTML:YES];
-    }
-	
-    if (data.attachments && [data.attachments count] > 0) {
-        for (NSDictionary *dict in data.attachments) {
-            NSData *data = [dict objectForKey:@"data"];
-            NSString *type = [dict objectForKey:@"type"];
-            NSString *name = [dict objectForKey:@"name"];
-            [mc addAttachmentData:data mimeType:type fileName:name];
-        }
-    }
-	
-	[mc setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
-    
-    
-
-	if(mc) [self.referencedController presentModalViewController:mc animated:YES];
-	[mc release];  
-}
-
-
-#pragma mark Mail controller delegates
-- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
-   
-    if (self.mailDelegate && [self.mailDelegate respondsToSelector:@selector(mailSent:)]) {
-        [self.mailDelegate mailSent:result];
-    }
-    [controller dismissModalViewControllerAnimated:YES];
-}
- 
-
-#pragma mark --
-#pragma mark UIActionSheet
+#pragma mark ActionSheet delegate
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     NSString *btnText = [actionSheet buttonTitleAtIndex:buttonIndex];
     if ([btnText isEqualToString:@"Mail"]) {
         //implement mail
-        if (self.mailDelegate && [self.mailDelegate respondsToSelector:@selector(mailShareData)]) {
-            FTShareMailData *data = [self.mailDelegate mailShareData];
-            if (!data) return;
-            [self shareViaMail:data];
-        }
+        [_emailEngine shareViaMail:nil];
     }
     else  if ([btnText isEqualToString:@"Facebook"]) {
         //implement FAcebook
@@ -178,6 +139,7 @@
         [_twitterEngine shareViaTwitter:nil];
     }
 }
+
 
 
 @end

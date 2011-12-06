@@ -24,7 +24,7 @@
     // set up sharing components
     [appDel.share setUpTwitterWithConsumerKey:kIKTwitterConsumerKey secret:kIKTwiiterPasscode andDelegate:self];
     [appDel.share setUpFacebookWithAppID:kIKFacebookAppID permissions:FTShareFacebookPermissionRead|FTShareFacebookPermissionPublish andDelegate:self];
-    [appDel.share setMailDelegate:self];
+    [appDel.share setUpEmailWithDelegate:self];
     
     return appDel.share;
 }
@@ -126,8 +126,8 @@
  * If using Action Sheet this is ised to set the data to share.
  *
  */
-- (FTShareMailData *)mailShareData {
-    FTShareMailData *data = [[FTShareMailData alloc] init];
+- (FTShareEmailData *)mailShareData {
+    FTShareEmailData *data = [[FTShareEmailData alloc] init];
     [data setSubject:@"check out this site"];
     [data setPlainBody:@"Crazy for iOS apps!\n http://www.fuerteint.com"];
     [data setHtmlBody:@"<h2>Crazy for iOS apps!</h2><a href='http://www.fuerteint.com'>fuerteint.com</a>"];

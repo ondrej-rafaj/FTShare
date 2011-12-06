@@ -17,6 +17,7 @@
 @synthesize picture = _picture;
 @synthesize description = _description;
 @synthesize uploadImage = _uploadImage;
+@synthesize type = _type;
 
 
 
@@ -102,18 +103,22 @@
     }
 }
 
+- (void)authorize {
+    [_facebook authorize:_permissions];
+}
+
 - (void)shareViaFacebook:(FTShareFacebookData *)data {
-    if (!data) {
+    if (![data isRequestValid]) {
         if (self.facebookDelegate && [self.facebookDelegate respondsToSelector:@selector(facebookShareData)]) {
             data = [self.facebookDelegate facebookShareData];
-            if (!data) [NSException raise:@"Facebook cannot post empy data" format:nil];
+            if (![data isRequestValid]) [NSException raise:@"Facebook cannot post empy data" format:nil];
         }
     }
 
     
     _params = data;
     if (![_facebook isSessionValid]) {
-        [_facebook authorize:_permissions];
+        [self authorize];
     }
     else {
         if (![_params isRequestValid]) return;
@@ -128,21 +133,24 @@
     }
 }
 
-/*
-- (void)getFacebookData:(FTShareFacebookGetData *)data withDelegate:(id <FBRequestDelegate>)delegate {
-	self.facebookGetParams = data;
+
+- (void)getFacebookData:(NSString *)message ofType:(FTShareFacebookGetType)type withDelegate:(id <FBRequestDelegate>)delegate {
+	_params = nil;
+    _params.message = message;
+    _params.type = type;
 	if (![self.facebook isSessionValid]) {
-        [self facebookLogin];
+        [self authorize];
     }
     else {
-        //if (![self.facebookParams isRequestValid]) return;
-        [self.facebook requestWithGraphPath:@"me/friends" andParams:[self.facebookGetParams dictionaryFromParams] andHttpMethod:@"POST" andDelegate:self];
+        [self.facebook requestWithGraphPath:@"me/friends" andParams:[_params dictionaryFromParams] andHttpMethod:@"POST" andDelegate:self];
 	}
 }
-*/
+
 
 #pragma mark Facebook dialog
 
+/*
+#warning DEPRECATED!
 - (void)dialogDidComplete:(FBDialog *)dialog {
 	if (self.facebookDelegate && [self.facebookDelegate respondsToSelector:@selector(facebookDidPost:)]) {
         [self.facebookDelegate facebookDidPost:nil];
@@ -165,6 +173,9 @@
     _params = nil;
 }
 
+*/
+ 
+ 
 #pragma mark Facebook login
 
 - (void)fbDidLogin {
@@ -214,18 +225,18 @@
 #pragma mark Facebook request delegate
 
 - (void)request:(FBRequest *)request didLoad:(id)result {
-	NSLog(@"FB Result: %@", result);
+    if (self.facebookDelegate && [self.facebookDelegate respondsToSelector:@selector(facebookDidReceiveResponse:)]) {
+        [self.facebookDelegate facebookDidReceiveResponse:result];
+    }   
 }
 
 - (void)request:(FBRequest *)request didReceiveResponse:(NSURLResponse *)response {
-	NSLog(@"FB Result: %@", response);
     if (self.facebookDelegate && [self.facebookDelegate respondsToSelector:@selector(facebookDidPost:)]) {
         [self.facebookDelegate facebookDidPost:nil];
     }
 }
 
 - (void)request:(FBRequest *)request didFailWithError:(NSError *)error {
-	NSLog(@"FB Result: %@", error);
     if (self.facebookDelegate && [self.facebookDelegate respondsToSelector:@selector(facebookDidPost:)]) {
         [self.facebookDelegate facebookDidPost:error];
     }

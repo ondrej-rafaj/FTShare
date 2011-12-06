@@ -38,20 +38,3 @@ typedef enum {
 
 @end
 
-@interface FTShareMailData : NSObject {
-    NSString *_subject;
-    NSString *_plainBody;
-    NSString *_htmlBody;
-@private
-    NSMutableArray *_attachments;
-}
-
-@property (nonatomic, retain) NSString *subject;
-@property (nonatomic, retain) NSString *plainBody;
-@property (nonatomic, retain) NSString *htmlBody;
-@property (nonatomic, readonly, retain) NSMutableArray *attachments;
-
-- (void)addAttachmentWithObject:(id)obj type:(NSString *)type andName:(NSString *)name;
-- (BOOL)isRequestValid;
-
-@end

@@ -15,11 +15,11 @@
 
 #import <Foundation/Foundation.h>
 #import <MessageUI/MessageUI.h>
-#import "FTShareDataObjects.h"
 
 
 #import "FTShareTwitter.h"
 #import "FTShareFacebook.h"
+#import "FTShareEmail.h"
 
 
 enum {
@@ -30,26 +30,19 @@ enum {
 typedef NSUInteger FTShareOptions;
 
 
-@protocol FTShareMailDelegate;
 
-@interface FTShare : NSObject <MFMailComposeViewControllerDelegate, MFMailComposeViewControllerDelegate, UIActionSheetDelegate> {
+
+@interface FTShare : NSObject <UIActionSheetDelegate> {
     
     FTShareTwitter *_twitterEngine;
     FTShareFacebook *_facebookEngine;
+    FTShareEmail *_emailEngine;
     
-    id <FTShareMailDelegate> _mailDelegate;
     id _referencedController;
 }
 
-@property (nonatomic, retain) Facebook *facebook;
-
-
-@property (nonatomic, assign) id<FTShareMailDelegate> mailDelegate;
-
+@property (nonatomic, retain) Facebook *facebook; // needs to be pubblic for UIApplication
 @property (nonatomic, assign) id referencedController;
-@property (nonatomic, retain) FTShareFacebookData *facebookParams;
-@property (nonatomic, retain) FTShareFacebookGetData *facebookGetParams;
-@property (nonatomic, retain) FTShareTwitterData *twitterParams;
 
 
 - (id)initWithReferencedController:(id)controller;
@@ -61,25 +54,9 @@ typedef NSUInteger FTShareOptions;
 
 
 - (void)setUpFacebookWithAppID:(NSString *)appID permissions:(FTShareFacebookPermission)permissions andDelegate:(id<FTShareFacebookDelegate>)delegate;
-//- (void)facebookLogin;
 - (void)shareViaFacebook:(FTShareFacebookData *)data;
-//- (void)getFacebookData:(FTShareFacebookGetData *)data withDelegate:(id <FBRequestDelegate>)delegate;
-//- (BOOL)canUseOfflineAccess;
-//- (void)setCanUseOfflineAccess:(BOOL)offline;
 
-- (void)shareViaMail:(FTShareMailData *)data;
-
-@end
-
-
-
-
-
-@protocol FTShareMailDelegate <NSObject>
-
-@optional
-
-- (FTShareMailData *)mailShareData;
-- (void)mailSent:(MFMailComposeResult)result;
+- (void)setUpEmailWithDelegate:(id<FTShareEmailDelegate>)delegate;
+- (void)shareViaEmail:(FTShareEmailData *)data;
 
 @end

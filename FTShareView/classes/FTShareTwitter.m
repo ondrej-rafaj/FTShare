@@ -60,11 +60,12 @@
 }
 
 - (void)shareViaTwitter:(FTShareTwitterData *)data {
-    if (!data) {
+    if (![data isRequestValid]) {
         if (self.twitterDelegate && [self.twitterDelegate respondsToSelector:@selector(twitterData)]) {
             data = [self.twitterDelegate twitterData];
+            if (![data isRequestValid]) [NSException raise:@"Twitter cannot post empy data" format:nil];
         }
-        if (!data) [NSException raise:@"Twitter cannot post empy data" format:nil];
+        
     }
     _twitterParams = data;
     if(![_twitter isAuthorized]){  

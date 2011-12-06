@@ -92,6 +92,7 @@
 		689529E7144EF3D600074F22 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 689529E6144EF3D600074F22 /* QuartzCore.framework */; };
 		A599D88D148E31BB00359F21 /* FTShareTwitter.m in Sources */ = {isa = PBXBuildFile; fileRef = A599D88C148E31BA00359F21 /* FTShareTwitter.m */; };
 		A599D890148E3DFC00359F21 /* FTShareFacebook.m in Sources */ = {isa = PBXBuildFile; fileRef = A599D88F148E3DFC00359F21 /* FTShareFacebook.m */; };
+		A599D897148E6D2700359F21 /* FTShareEmail.m in Sources */ = {isa = PBXBuildFile; fileRef = A599D896148E6D2700359F21 /* FTShareEmail.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -284,6 +285,8 @@
 		A599D88C148E31BA00359F21 /* FTShareTwitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTShareTwitter.m; sourceTree = "<group>"; };
 		A599D88E148E3DFC00359F21 /* FTShareFacebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTShareFacebook.h; sourceTree = "<group>"; };
 		A599D88F148E3DFC00359F21 /* FTShareFacebook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTShareFacebook.m; sourceTree = "<group>"; };
+		A599D895148E6D2700359F21 /* FTShareEmail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTShareEmail.h; sourceTree = "<group>"; };
+		A599D896148E6D2700359F21 /* FTShareEmail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTShareEmail.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -414,6 +417,8 @@
 				A599D88C148E31BA00359F21 /* FTShareTwitter.m */,
 				A599D88E148E3DFC00359F21 /* FTShareFacebook.h */,
 				A599D88F148E3DFC00359F21 /* FTShareFacebook.m */,
+				A599D895148E6D2700359F21 /* FTShareEmail.h */,
+				A599D896148E6D2700359F21 /* FTShareEmail.m */,
 			);
 			name = classes;
 			path = FTShareView/classes;
@@ -831,6 +836,7 @@
 				689529D6144EE1B100074F22 /* AnyViewController.m in Sources */,
 				A599D88D148E31BB00359F21 /* FTShareTwitter.m in Sources */,
 				A599D890148E3DFC00359F21 /* FTShareFacebook.m in Sources */,
+				A599D897148E6D2700359F21 /* FTShareEmail.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "FTShare.h"
 
-@interface AnyViewController : UIViewController <FTShareTwitterDelegate, FTShareFacebookDelegate, FTShareMailDelegate>
+@interface AnyViewController : UIViewController <FTShareTwitterDelegate, FTShareFacebookDelegate, FTShareEmailDelegate>
 
 @end
