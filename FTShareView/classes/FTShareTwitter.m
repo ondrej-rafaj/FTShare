@@ -3,7 +3,7 @@
 //  FTShareView
 //
 //  Created by cescofry on 06/12/2011.
-//  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2011 Fuerte International. All rights reserved.
 //
 
 #import "FTShareTwitter.h"

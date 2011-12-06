@@ -6,12 +6,13 @@
 //  Copyright (c) 2011 Fuerte International. All rights reserved.
 //
 
+
 #import <Foundation/Foundation.h>
 #import "SA_OAuthTwitterEngine.h"
 #import "SA_OAuthTwitterController.h"
 
 
-//Use http://developers.facebook.com/docs/reference/dialogs/feed/ to see how to use those parameters
+
 
 @interface FTShareTwitterData : NSObject {
     NSString *_message;

@@ -3,8 +3,9 @@
 //  FTShareView
 //
 //  Created by cescofry on 06/12/2011.
-//  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2011 Fuerte International. All rights reserved.
 //
+//Use http://developers.facebook.com/docs/reference/dialogs/feed/ to see how to use those parameters
 
 #import <Foundation/Foundation.h>
 #import "FBConnect.h"
