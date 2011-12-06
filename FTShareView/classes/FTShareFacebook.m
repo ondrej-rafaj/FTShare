@@ -225,7 +225,6 @@
 	[[NSUserDefaults standardUserDefaults] setBool:offline forKey:@"FTShareCanUseOfflineAccess"];
 	[[NSUserDefaults standardUserDefaults] synchronize];
 }
- 
 */
 
 #pragma mark Facebook request delegate

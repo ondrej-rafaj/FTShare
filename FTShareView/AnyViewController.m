@@ -81,7 +81,7 @@
  *
  */
 - (void)facebookDidLogin:(NSError *)error {
-    
+        NSLog(@"Facebook did %@ login with Error: [%@]",(error == nil)? @"" : @"NOT", [error localizedDescription]);
 }
 
 /**
@@ -89,7 +89,7 @@
  *
  */
 - (void)facebookDidPost:(NSError *)error {
-    
+    NSLog(@"Facebook has %@ posted with Error: [%@]",(error == nil)? @"" : @"NOT", [error localizedDescription]);
 }
 
 #pragma mark FTShare Twitter
@@ -100,7 +100,7 @@
  */
 - (FTShareTwitterData *)twitterData {
     FTShareTwitterData *data = [[FTShareTwitterData alloc] init];
-    [data setMessage:@"Crazy for iOS apps! - http://www.fuerteint.com"];
+    [data setMessage:@"This guys are crazy for iOS apps! - http://www.fuerteint.com"];
     return data;
 }
 
@@ -110,6 +110,7 @@
  */
 - (void)twitterDidLogin:(NSError *)error {
     //manage twitter finished login
+    NSLog(@"Twitter did %@ login with Error: [%@]",(error == nil)? @"" : @"NOT", [error localizedDescription]);
 }
 
 /**
@@ -118,6 +119,7 @@
  */
 - (void)twitterDidPost:(NSError *)error {
     //mange twitter finished post
+    NSLog(@"Twitter has %@ posted with Error: [%@]",(error == nil)? @"" : @"NOT", [error localizedDescription]);
 }
 
 #pragma mark FTShare Mail
@@ -142,6 +144,7 @@
  */
 - (void)mailSent:(MFMailComposeResult)result {
     //manage mail result
+    NSLog(@"Mail %@ sent", (result == MFMailComposeResultSent)? @"" : @"NOT");
 }
 
 
