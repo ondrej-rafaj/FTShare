@@ -28,4 +28,4 @@ Third Party references:
 
 - facebook-ios-sdk - https://github.com/facebook/facebook-ios-sdk
 - MGTwitterEngine - https://github.com/mattgemmell/MGTwitterEngine
-- Note that SBJson has been modified therefor may or may not work with your version. 
+- Note that SBJson has been modified therefore may or may not work with your version. 
