@@ -11,6 +11,44 @@
 #pragma mark --
 #pragma mark Data Type
 
+
+@implementation FTShareFacebookPhoto
+
+@synthesize photo = _photo;
+@synthesize album = _album;
+@synthesize message = _message;
+@synthesize tags = _tags;
+
++ (id)facebookPhotoFromImage:(UIImage *)image {
+    if (!image) return nil;
+    FTShareFacebookPhoto *photo = [[FTShareFacebookPhoto alloc] init];
+    if (photo) [photo setPhoto:image];
+    return photo;
+}
+
+- (void)addTagToUserID:(NSString *)userID atPoint:(CGPoint)point {
+    if (!_tags) _tags = [NSMutableArray array];
+    
+    NSDictionary *tag = [NSDictionary dictionaryWithObjectsAndKeys:
+                         userID, @"tag_text",
+                         [NSNumber numberWithFloat:point.x], @"x",
+                         [NSNumber numberWithFloat:point.y], @"y",
+                         nil];
+    [_tags addObject:tag];
+}
+
+- (NSString *)tagsAsString {
+    SBJsonWriter *jsonWriter = [[SBJsonWriter alloc] init];
+    NSError *error = nil;
+    NSString *serializedString = [jsonWriter stringWithObject:self.tags error:&error];
+    if (error) NSLog(@"Error: %@", error.description);
+    
+    return serializedString;
+}
+
+@end
+
+
 @implementation FTShareFacebookData
 
 @synthesize message = _message;
@@ -19,7 +57,7 @@
 @synthesize caption = _caption;
 @synthesize picture = _picture;
 @synthesize description = _description;
-@synthesize uploadImage = _uploadImage;
+@synthesize uploadPhoto = _uploadPhoto;
 @synthesize type = _type;
 @synthesize httpType = _httpType;
 
@@ -27,7 +65,7 @@
 
 - (BOOL)isRequestValid {
     BOOL isValidMessage = (self.message && [self.message length] > 0);
-    BOOL isValidImage = (!self.uploadImage || (self.uploadImage && !CGSizeEqualToSize(self.uploadImage.size, CGSizeZero)));
+    BOOL isValidImage = (!self.uploadPhoto.photo || (self.uploadPhoto.photo && !CGSizeEqualToSize(self.uploadPhoto.photo.size, CGSizeZero)));
     BOOL valid = (isValidMessage || isValidImage);
     if (!valid) NSLog(@"Facebook request seams not valid");
     return valid;
@@ -35,13 +73,22 @@
 
 - (NSMutableDictionary *)dictionaryFromParams {
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-    if (self.message) [dict setObject:self.message forKey:@"message"];
-    if (self.link) [dict setObject:self.link forKey:@"link"];
-	if (self.name) [dict setObject:self.name forKey:@"name"];
-    if (self.caption) [dict setObject:self.caption forKey:@"caption"];
-    if (self.picture) [dict setObject:self.picture forKey:@"picture"];
-    if (self.description) [dict setObject:self.description forKey:@"description"];
-    if (self.uploadImage && !CGSizeEqualToSize(self.uploadImage.size, CGSizeZero)) [dict setObject:self.uploadImage forKey:@"uploadImage"];
+
+    if (self.uploadPhoto.photo && !CGSizeEqualToSize(self.uploadPhoto.photo.size, CGSizeZero)) {
+        [dict setObject:self.uploadPhoto.photo forKey:@"source"];
+        if (self.uploadPhoto.message)[dict setObject:self.uploadPhoto.message forKey:@"message"];
+        NSString *tags = [self.uploadPhoto tagsAsString];
+        if (self.uploadPhoto.tags.count > 0) [dict setObject:tags forKey:@"tags"];
+    }
+    else {
+        if (self.message) [dict setObject:self.message forKey:@"message"];
+        if (self.link) [dict setObject:self.link forKey:@"link"];
+        if (self.name) [dict setObject:self.name forKey:@"name"];
+        if (self.caption) [dict setObject:self.caption forKey:@"caption"];
+        if (self.picture) [dict setObject:self.picture forKey:@"picture"];
+        if (self.description) [dict setObject:self.description forKey:@"description"]; 
+    }
+    
     
     return dict;
 }
@@ -93,7 +140,7 @@
     [_caption release], _caption = nil;
     [_picture release], _picture = nil;
     [_description release], _description = nil;
-    [_uploadImage release], _uploadImage = nil;
+    [_uploadPhoto release], _uploadPhoto = nil;
     [super dealloc];
 }
 
@@ -130,13 +177,16 @@
 
 - (void)setUpPermissions:(FTShareFacebookPermission)permission {
     NSMutableArray *options = [NSMutableArray array];
-   
+    
     if (permission & FTShareFacebookPermissionRead) {
-        [options addObjectsFromArray:[NSArray arrayWithObjects:@"offline_access", @"read_stream", @"read_friendlists", @"read_insights", @"user_about_me", nil]];
+        [options addObjectsFromArray:[NSArray arrayWithObjects:@"read_stream", @"read_friendlists", @"read_insights", @"user_about_me", nil]];
     }
     if (permission & FTShareFacebookPermissionPublish){
         [options addObject:@"publish_stream"];
-    } 
+    }
+    if (permission & FTShareFacebookPermissionOffLine) {
+        [options addObject:@"offline_access"];
+    }  
     
     if ([options count] > 0) {
         _permissions = nil;
@@ -260,19 +310,6 @@
     self.facebookDelegate = nil;
     _params = nil;
 }
-
-/*
-#pragma mark Using Offline access
-
-- (BOOL)canUseOfflineAccess {
-	return [[NSUserDefaults standardUserDefaults] boolForKey:@"FTShareCanUseOfflineAccess"];
-}
-
-- (void)setCanUseOfflineAccess:(BOOL)offline {
-	[[NSUserDefaults standardUserDefaults] setBool:offline forKey:@"FTShareCanUseOfflineAccess"];
-	[[NSUserDefaults standardUserDefaults] synchronize];
-}
-*/
 
 #pragma mark Facebook request delegate
 

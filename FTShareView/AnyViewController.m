@@ -23,7 +23,7 @@
     
     // set up sharing components
     [appDel.share setUpTwitterWithConsumerKey:kIKTwitterConsumerKey secret:kIKTwiiterPasscode andDelegate:self];
-    [appDel.share setUpFacebookWithAppID:kIKFacebookAppID permissions:FTShareFacebookPermissionRead|FTShareFacebookPermissionPublish andDelegate:self];
+    [appDel.share setUpFacebookWithAppID:kIKFacebookAppID permissions:FTShareFacebookPermissionRead|FTShareFacebookPermissionPublish|FTShareFacebookPermissionOffLine andDelegate:self];
     [appDel.share setUpEmailWithDelegate:self];
     
     return appDel.share;
@@ -44,9 +44,15 @@
     [share shareViaFacebook:fbData];
 }
 
-- (void)testFBWithNoPath {
+- (void)fbUploadImage {
     FTShare *share = [self shareInstance];
-    [share shareViaFacebook:nil];
+    FTShareFacebookData *fbData = [[FTShareFacebookData alloc] init];
+    [fbData setType:FTShareFacebookRequestTypeAlbum];
+    [fbData setHttpType:FTShareFacebookHttpTypePost];
+    FTShareFacebookPhoto *photo = [FTShareFacebookPhoto facebookPhotoFromImage:[UIImage imageNamed:@"Cornholio.jpg"]];
+    [photo setMessage:@"I am the great Cornholio;"];
+    [fbData setUploadPhoto:photo];
+    [share shareViaFacebook:fbData];
 }
 
 
@@ -82,9 +88,9 @@
     [self.view addSubview:btn1];
     
     UIButton *btn2 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [btn2 setTitle:@"no path" forState:UIControlStateNormal];
-    [btn2 setFrame:CGRectMake(150, 430, 100, 20)];
-    [btn2 addTarget:self action:@selector(testFBWithNoPath) forControlEvents:UIControlEventTouchUpInside];
+    [btn2 setTitle:@"upload Image" forState:UIControlStateNormal];
+    [btn2 setFrame:CGRectMake(120, 430, 150, 20)];
+    [btn2 addTarget:self action:@selector(fbUploadImage) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn2];
     
 }

@@ -17,6 +17,7 @@ typedef enum {
     FTShareFacebookPermissionNull       = 0 << 0,
     FTShareFacebookPermissionRead       = 1 << 0,
     FTShareFacebookPermissionPublish    = 1 << 1,
+    FTShareFacebookPermissionOffLine    = 1 << 2
 } FTShareFacebookPermission;
 
 typedef enum {
@@ -32,6 +33,24 @@ typedef enum {
     FTShareFacebookHttpTypeDelete,
 } FTShareFacebookHttpType;
 
+@interface FTShareFacebookPhoto : NSObject {
+    UIImage *_photo;
+    NSString *_album;
+    NSString *_message;
+    NSMutableArray *_tags;
+}
+
+@property (nonatomic, retain) UIImage *photo;
+@property (nonatomic, retain) NSString *album;
+@property (nonatomic, retain) NSString *message;
+@property (nonatomic, retain) NSMutableArray *tags;
+
++ (id)facebookPhotoFromImage:(UIImage *)image;
+- (void)addTagToUserID:(NSString *)userID atPoint:(CGPoint)point;
+- (NSString *)tagsAsString;
+
+@end
+
 @interface FTShareFacebookData : NSObject {
     NSString *_message;
     NSString *_link;
@@ -42,7 +61,7 @@ typedef enum {
     FTShareFacebookRequestType _type;
     FTShareFacebookHttpType _httpType;
     
-    UIImage  *_uploadImage;
+    FTShareFacebookPhoto  *_uploadPhoto;
     
 }
 
@@ -52,7 +71,7 @@ typedef enum {
 @property (nonatomic, retain) NSString *caption;
 @property (nonatomic, retain) NSString *picture;
 @property (nonatomic, retain) NSString *description;
-@property (nonatomic, retain) UIImage *uploadImage;
+@property (nonatomic, retain) FTShareFacebookPhoto *uploadPhoto;
 @property (nonatomic, assign) FTShareFacebookRequestType type;
 @property (nonatomic, assign) FTShareFacebookHttpType httpType;
 

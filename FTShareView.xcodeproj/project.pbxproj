@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		682C13F5149A1ADB0000FCD3 /* Cornholio.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 682C13F4149A1ADB0000FCD3 /* Cornholio.jpg */; };
 		689527AD144ED89A00074F22 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 689527AC144ED89A00074F22 /* UIKit.framework */; };
 		689527AF144ED89A00074F22 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 689527AE144ED89A00074F22 /* Foundation.framework */; };
 		689527B1144ED89A00074F22 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 689527B0144ED89A00074F22 /* CoreGraphics.framework */; };
@@ -19,7 +20,6 @@
 		689527CF144ED89A00074F22 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 689527CD144ED89A00074F22 /* InfoPlist.strings */; };
 		689527D2144ED89B00074F22 /* FTShareViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 689527D1144ED89B00074F22 /* FTShareViewTests.m */; };
 		68952889144ED91C00074F22 /* FTShare.m in Sources */ = {isa = PBXBuildFile; fileRef = 689527EB144ED91C00074F22 /* FTShare.m */; };
-		6895288A144ED91C00074F22 /* FTShareDataObjects.m in Sources */ = {isa = PBXBuildFile; fileRef = 689527ED144ED91C00074F22 /* FTShareDataObjects.m */; };
 		689528CB144ED95700074F22 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 689528CA144ED95700074F22 /* MessageUI.framework */; };
 		689528D5144EDA0200074F22 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 689528D4144EDA0200074F22 /* libxml2.dylib */; };
 		6895298D144EE0C200074F22 /* ASIAuthenticationDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 689528F4144EE0C200074F22 /* ASIAuthenticationDialog.m */; };
@@ -106,6 +106,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		682C13F4149A1ADB0000FCD3 /* Cornholio.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Cornholio.jpg; sourceTree = "<group>"; };
 		689527A8144ED89A00074F22 /* FTShareView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FTShareView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		689527AC144ED89A00074F22 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		689527AE144ED89A00074F22 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -124,8 +125,6 @@
 		689527D1144ED89B00074F22 /* FTShareViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FTShareViewTests.m; sourceTree = "<group>"; };
 		689527EA144ED91C00074F22 /* FTShare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTShare.h; sourceTree = "<group>"; };
 		689527EB144ED91C00074F22 /* FTShare.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTShare.m; sourceTree = "<group>"; };
-		689527EC144ED91C00074F22 /* FTShareDataObjects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTShareDataObjects.h; sourceTree = "<group>"; };
-		689527ED144ED91C00074F22 /* FTShareDataObjects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTShareDataObjects.m; sourceTree = "<group>"; };
 		689528C9144ED93400074F22 /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Config.h; path = FTShareView/Config.h; sourceTree = SOURCE_ROOT; };
 		689528CA144ED95700074F22 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		689528D4144EDA0200074F22 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
@@ -322,6 +321,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		682C13F3149A1ADB0000FCD3 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				682C13F4149A1ADB0000FCD3 /* Cornholio.jpg */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
 		6895279D144ED89A00074F22 = {
 			isa = PBXGroup;
 			children = (
@@ -378,6 +385,7 @@
 		689527B3144ED89A00074F22 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				682C13F3149A1ADB0000FCD3 /* Assets */,
 				689528C9144ED93400074F22 /* Config.h */,
 				689527B4144ED89A00074F22 /* FTShareView-Info.plist */,
 				689527B5144ED89A00074F22 /* InfoPlist.strings */,
@@ -411,8 +419,6 @@
 			children = (
 				689527EA144ED91C00074F22 /* FTShare.h */,
 				689527EB144ED91C00074F22 /* FTShare.m */,
-				689527EC144ED91C00074F22 /* FTShareDataObjects.h */,
-				689527ED144ED91C00074F22 /* FTShareDataObjects.m */,
 				A599D88B148E31BA00359F21 /* FTShareTwitter.h */,
 				A599D88C148E31BA00359F21 /* FTShareTwitter.m */,
 				A599D88E148E3DFC00359F21 /* FTShareFacebook.h */,
@@ -739,6 +745,7 @@
 				689529B6144EE0C200074F22 /* jQueryInject.txt in Resources */,
 				689529B7144EE0C200074F22 /* jQueryInjectLandscape.txt in Resources */,
 				689529C9144EE0C200074F22 /* twitter_load.png in Resources */,
+				682C13F5149A1ADB0000FCD3 /* Cornholio.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -776,7 +783,6 @@
 				689527B9144ED89A00074F22 /* main.m in Sources */,
 				689527BD144ED89A00074F22 /* FTAppDelegate.m in Sources */,
 				68952889144ED91C00074F22 /* FTShare.m in Sources */,
-				6895288A144ED91C00074F22 /* FTShareDataObjects.m in Sources */,
 				6895298D144EE0C200074F22 /* ASIAuthenticationDialog.m in Sources */,
 				6895298E144EE0C200074F22 /* ASIDataCompressor.m in Sources */,
 				6895298F144EE0C200074F22 /* ASIDataDecompressor.m in Sources */,
@@ -933,6 +939,7 @@
 					"${SDKROOT}/usr/include/libxml2/**",
 				);
 				INFOPLIST_FILE = "FTShareView/FTShareView-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
 				LIBRARY_SEARCH_PATHS = (
 					"\"$(SRCROOT)/../**\"",
 					"\"$(SRCROOT)/../ThirdParty/Twitter+OAuth/Libraries & Headers\"",
@@ -960,6 +967,7 @@
 					"${SDKROOT}/usr/include/libxml2/**",
 				);
 				INFOPLIST_FILE = "FTShareView/FTShareView-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
 				LIBRARY_SEARCH_PATHS = (
 					"\"$(SRCROOT)/../**\"",
 					"\"$(SRCROOT)/../ThirdParty/Twitter+OAuth/Libraries & Headers\"",
