@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		682C13F5149A1ADB0000FCD3 /* Cornholio.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 682C13F4149A1ADB0000FCD3 /* Cornholio.jpg */; };
+		6868F70A14BB546600AE274B /* FTShareMessageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6868F70914BB546600AE274B /* FTShareMessageController.m */; };
 		689527AD144ED89A00074F22 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 689527AC144ED89A00074F22 /* UIKit.framework */; };
 		689527AF144ED89A00074F22 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 689527AE144ED89A00074F22 /* Foundation.framework */; };
 		689527B1144ED89A00074F22 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 689527B0144ED89A00074F22 /* CoreGraphics.framework */; };
@@ -107,6 +108,8 @@
 
 /* Begin PBXFileReference section */
 		682C13F4149A1ADB0000FCD3 /* Cornholio.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Cornholio.jpg; sourceTree = "<group>"; };
+		6868F70814BB546600AE274B /* FTShareMessageController.h */ = {isa = PBXFileReference; fileEncoding = 4; path = FTShareMessageController.h; sourceTree = "<group>"; };
+		6868F70914BB546600AE274B /* FTShareMessageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTShareMessageController.m; sourceTree = "<group>"; };
 		689527A8144ED89A00074F22 /* FTShareView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FTShareView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		689527AC144ED89A00074F22 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		689527AE144ED89A00074F22 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -372,6 +375,8 @@
 		689527B2144ED89A00074F22 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				6868F70814BB546600AE274B /* FTShareMessageController.h */,
+				6868F70914BB546600AE274B /* FTShareMessageController.m */,
 				689527BB144ED89A00074F22 /* FTAppDelegate.h */,
 				689527BC144ED89A00074F22 /* FTAppDelegate.m */,
 				689529D4144EE1B100074F22 /* AnyViewController.h */,
@@ -843,6 +848,7 @@
 				A599D88D148E31BB00359F21 /* FTShareTwitter.m in Sources */,
 				A599D890148E3DFC00359F21 /* FTShareFacebook.m in Sources */,
 				A599D897148E6D2700359F21 /* FTShareEmail.m in Sources */,
+				6868F70A14BB546600AE274B /* FTShareMessageController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

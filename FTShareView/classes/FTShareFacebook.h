@@ -9,6 +9,7 @@
 
 #import <Foundation/Foundation.h>
 #import "FBConnect.h"
+#import "FTShareMessageController.h"
 
 #pragma mark --
 #pragma mark Data Type
@@ -38,6 +39,7 @@ typedef enum {
     NSString *_album;
     NSString *_message;
     NSMutableArray *_tags;
+    
 }
 
 @property (nonatomic, retain) UIImage *photo;
@@ -58,6 +60,7 @@ typedef enum {
     NSString *_caption;
     NSString *_picture;
     NSString *_description;
+    BOOL _hasControllerSupport;
     FTShareFacebookRequestType _type;
     FTShareFacebookHttpType _httpType;
     
@@ -71,6 +74,7 @@ typedef enum {
 @property (nonatomic, retain) NSString *caption;
 @property (nonatomic, retain) NSString *picture;
 @property (nonatomic, retain) NSString *description;
+@property (nonatomic, assign) BOOL hasControllerSupport;
 @property (nonatomic, retain) FTShareFacebookPhoto *uploadPhoto;
 @property (nonatomic, assign) FTShareFacebookRequestType type;
 @property (nonatomic, assign) FTShareFacebookHttpType httpType;
@@ -87,7 +91,7 @@ typedef enum {
 #pragma mark Class
 
 @protocol FTShareFacebookDelegate;
-@interface FTShareFacebook : NSObject <FBRequestDelegate, FBSessionDelegate, FBDialogDelegate> {
+@interface FTShareFacebook : NSObject <FBRequestDelegate, FBSessionDelegate, FBDialogDelegate, FTShareMessageControllerDelegate> {
     Facebook *_facebook;
     id <FTShareFacebookDelegate> _facebookDelegate;
     id _referencedController;

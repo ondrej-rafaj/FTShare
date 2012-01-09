@@ -10,16 +10,18 @@
 #import <Foundation/Foundation.h>
 #import "SA_OAuthTwitterEngine.h"
 #import "SA_OAuthTwitterController.h"
-
+#import "FTShareMessageController.h"
 
 #pragma mark --
 #pragma mark Data Type
 
 @interface FTShareTwitterData : NSObject {
     NSString *_message;
+    BOOL _hasSupportController;
 }
 
 @property (nonatomic, retain) NSString *message;
+@property (nonatomic, assign) BOOL hasSupportController;
 
 - (BOOL)isRequestValid;
 
@@ -32,7 +34,7 @@
 
 
 @protocol FTShareTwitterDelegate;
-@interface FTShareTwitter : NSObject <SA_OAuthTwitterControllerDelegate, SA_OAuthTwitterEngineDelegate> {
+@interface FTShareTwitter : NSObject <SA_OAuthTwitterControllerDelegate, SA_OAuthTwitterEngineDelegate, FTShareMessageControllerDelegate> {
     SA_OAuthTwitterEngine *_twitter;
     id <FTShareTwitterDelegate> _twitterDelegate;
     FTShareTwitterData *_twitterParams;

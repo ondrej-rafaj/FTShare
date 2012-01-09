@@ -55,7 +55,6 @@
     [share shareViaFacebook:fbData];
 }
 
-
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
@@ -106,6 +105,7 @@
     [data setCaption:@"Latest test using Graph"];
     [data setType:FTShareFacebookRequestTypePost];
     [data setHttpType:FTShareFacebookHttpTypePost];
+    [data setHasControllerSupport:YES];
     return [data autorelease];
 }
 
@@ -151,6 +151,7 @@
 - (FTShareTwitterData *)twitterData {
     FTShareTwitterData *data = [[FTShareTwitterData alloc] init];
     [data setMessage:@"This guys are crazy for iOS apps! - http://www.fuerteint.com"];
+    [data setHasSupportController:YES];
     return data;
 }
 

@@ -57,6 +57,7 @@
 @synthesize caption = _caption;
 @synthesize picture = _picture;
 @synthesize description = _description;
+@synthesize hasControllerSupport = _hasControllerSupport;
 @synthesize uploadPhoto = _uploadPhoto;
 @synthesize type = _type;
 @synthesize httpType = _httpType;
@@ -204,10 +205,16 @@
 
 
 - (void)shareViaFacebook:(FTShareFacebookData *)data {
-    if (![data isRequestValid]) {
+    if (![data isRequestValid] || [data hasControllerSupport]) {
         if (self.facebookDelegate && [self.facebookDelegate respondsToSelector:@selector(facebookShareData)]) {
             data = [self.facebookDelegate facebookShareData];
-            if (![data isRequestValid]) [NSException raise:@"Facebook cannot post empy data" format:nil];
+            if (![data isRequestValid] || [data hasControllerSupport]) {
+                _params = data;
+                FTShareMessageController *messageController = [[FTShareMessageController alloc] initWithMessage:data.message type:FTShareMessageControllerTypeTwitter andelegate:self];
+                UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:messageController];
+                [_referencedController presentModalViewController:nc animated:YES];
+                return;
+            }
         }
     }
     _params = data;
@@ -329,6 +336,30 @@
     if (self.facebookDelegate && [self.facebookDelegate respondsToSelector:@selector(facebookDidPost:)]) {
         [self.facebookDelegate facebookDidPost:error];
     }
+}
+
+#pragma mark sharemessagcontroller delgate
+
+- (void)shareMessageController:(FTShareMessageController *)controller didFinishWithMessage:(NSString *)message {
+
+}
+
+- (void)shareMessageController:(FTShareMessageController *)controller didDisappearWithMessage:(NSString *)message {
+    if (!message || message.length == 0 || !_params) return;
+    
+    FTShareFacebookData *data = [[FTShareFacebookData alloc] init];
+    [data setHasControllerSupport:NO];
+    [data setMessage:message];
+    [data setLink:_params.link];
+    [data setHttpType:_params.httpType];
+    [data setUploadPhoto:_params.uploadPhoto];
+    [data setCaption:_params.caption];
+    [data setName:_params.name];
+    [self shareViaFacebook:data];    
+}
+
+- (void)shareMessageControllerDidCancel:(FTShareMessageController *)controller {
+    
 }
 
 

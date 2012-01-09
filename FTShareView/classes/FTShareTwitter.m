@@ -14,6 +14,7 @@
 @implementation FTShareTwitterData 
 
 @synthesize message = _message;
+@synthesize hasSupportController = _hasSupportController;
 
 - (BOOL)isRequestValid {
     BOOL valid = (self.message && [self.message length] > 0);
@@ -64,10 +65,15 @@
 }
 
 - (void)shareViaTwitter:(FTShareTwitterData *)data {
-    if (![data isRequestValid]) {
+    if (![data isRequestValid] || [data hasSupportController]) {
         if (self.twitterDelegate && [self.twitterDelegate respondsToSelector:@selector(twitterData)]) {
             data = [self.twitterDelegate twitterData];
-            if (![data isRequestValid]) [NSException raise:@"Twitter cannot post empy data" format:nil];
+            if (![data isRequestValid] || [data hasSupportController]) {
+                FTShareMessageController *messageController = [[FTShareMessageController alloc] initWithMessage:data.message type:FTShareMessageControllerTypeTwitter andelegate:self];
+                UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:messageController];
+                [_referencedController presentModalViewController:nc animated:YES];
+                return;
+            }
         }
         
     }
@@ -158,6 +164,24 @@
     _twitter = nil;
     self.twitterDelegate = nil;
     self.twitterDelegate = nil;
+}
+
+#pragma mark sharemessagcontroller delgate
+
+- (void)shareMessageController:(FTShareMessageController *)controller didFinishWithMessage:(NSString *)message {
+
+}
+
+-(void)shareMessageController:(FTShareMessageController *)controller didDisappearWithMessage:(NSString *)message {
+    if (!message || message.length == 0) return;
+    FTShareTwitterData *data = [[FTShareTwitterData alloc] init];
+    [data setMessage:message];
+    [data setHasSupportController:NO];
+    [self shareViaTwitter:data];    
+}
+
+- (void)shareMessageControllerDidCancel:(FTShareMessageController *)controller {
+    
 }
 
 @end
