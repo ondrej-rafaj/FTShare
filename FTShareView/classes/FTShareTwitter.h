@@ -42,6 +42,7 @@
 }
 
 @property (nonatomic, assign) id<FTShareTwitterDelegate> twitterDelegate;
+@property (nonatomic, readonly) FTShareTwitterData *twitterParams;
 
 - (void)setUpTwitterWithConsumerKey:(NSString *)consumerKey secret:(NSString *)secret referencedController:(id)referencedController andDelegate:(id<FTShareTwitterDelegate>)delegate;
 - (void)shareViaTwitter:(FTShareTwitterData *)data;

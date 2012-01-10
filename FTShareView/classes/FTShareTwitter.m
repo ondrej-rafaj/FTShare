@@ -37,6 +37,7 @@
 @implementation FTShareTwitter
 
 @synthesize twitterDelegate = _twitterDelegate;
+@synthesize twitterParams = _twitterParams;
 
 - (id)init {
     self = [super init];
@@ -48,6 +49,7 @@
 
 - (void)dealloc {
     _twitterDelegate = nil;
+    _twitterParams = nil;
     [super dealloc];
 }
 
@@ -77,7 +79,7 @@
         }
         
     }
-    _twitterParams = data;
+    _twitterParams = [data retain];
     if(![_twitter isAuthorized]){  
         UIViewController *controller = [SA_OAuthTwitterController controllerToEnterCredentialsWithTwitterEngine:_twitter delegate:self];  
         

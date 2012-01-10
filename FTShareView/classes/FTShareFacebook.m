@@ -157,6 +157,7 @@
 @synthesize facebook = _facebook;
 @synthesize facebookDelegate = _facebookDelegate;
 @synthesize params = _params;
+@synthesize permissions = _permissions;
 
 - (void)setUpFacebookWithAppID:(NSString *)appID referencedController:(id)referencedController andDelegate:(id<FTShareFacebookDelegate>)delegate {
     
@@ -192,7 +193,7 @@
     
     if ([options count] > 0) {
         _permissions = nil;
-        _permissions = (NSArray *) options;   
+        _permissions = [(NSArray *) options retain];   
     }
 }
 
@@ -218,7 +219,7 @@
             }
         }
     }
-    _params = data;
+    _params = [data retain];
     if (![_facebook isSessionValid]) {
         [self authorize];
     }
@@ -231,7 +232,7 @@
     if (!path) {
         if (self.facebookDelegate && [self.facebookDelegate respondsToSelector:@selector(facebookPathForRequestofMethodType:)]) {
             path = [self.facebookDelegate facebookPathForRequestofMethodType:&httpMethod];
-            if (!path) [NSException raise:@"Facebook request with no type will have no path either" format:nil];
+            if (!path) [NSException raise:@"Facebook request with no type will have no path either" format:@""];
         }
     }
     
@@ -244,6 +245,7 @@
 
 - (void)getFacebookData:(NSString *)message ofType:(FTShareFacebookRequestType)type withDelegate:(id <FBRequestDelegate>)delegate {
 	_params = nil;
+    _params = [[FTShareFacebookData alloc] init];
     _params.message = message;
     _params.type = type;
 	if (![self.facebook isSessionValid]) {
@@ -254,35 +256,6 @@
 	}
 }
 
-
-#pragma mark Facebook dialog
-
-/*
-#warning DEPRECATED!
-- (void)dialogDidComplete:(FBDialog *)dialog {
-	if (self.facebookDelegate && [self.facebookDelegate respondsToSelector:@selector(facebookDidPost:)]) {
-        [self.facebookDelegate facebookDidPost:nil];
-    }
-    
-    _facebook = nil;
-    self.facebookDelegate = nil;
-    _params = nil;
-}
-
-- (void)dialogDidNotComplete:(FBDialog *)dialog {
-    NSDictionary *dict = [NSDictionary dictionaryWithObjects: [NSArray arrayWithObjects:@"Unknown error occured", nil] forKeys:[NSArray arrayWithObjects:@"description", nil]];
-    NSError *error= [NSError errorWithDomain:@"com.fuerte.FTShare" code:400 userInfo:dict];
-    if (self.facebookDelegate && [self.facebookDelegate respondsToSelector:@selector(facebookDidPost:)]) {
-        [self.facebookDelegate facebookDidPost:error];
-    }
-    
-    _facebook = nil;
-    self.facebookDelegate = nil;
-    _params = nil;
-}
-
-*/
- 
  
 #pragma mark Facebook login
 
