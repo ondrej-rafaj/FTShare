@@ -151,7 +151,7 @@
 - (FTShareTwitterData *)twitterData {
     FTShareTwitterData *data = [[FTShareTwitterData alloc] init];
     [data setMessage:@"This guys are crazy for iOS apps! - http://www.fuerteint.com"];
-    [data setHasSupportController:YES]; // set to YES to use message controller
+    [data setHasControllerSupport: YES]; // set to YES to use message controller
     return data;
 }
 

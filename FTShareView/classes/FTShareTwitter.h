@@ -17,11 +17,11 @@
 
 @interface FTShareTwitterData : NSObject {
     NSString *_message;
-    BOOL _hasSupportController;
+    BOOL _hasControllerSupport;
 }
 
 @property (nonatomic, retain) NSString *message;
-@property (nonatomic, assign) BOOL hasSupportController;
+@property (nonatomic, assign) BOOL hasControllerSupport;
 
 - (BOOL)isRequestValid;
 

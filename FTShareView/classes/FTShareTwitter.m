@@ -14,7 +14,7 @@
 @implementation FTShareTwitterData 
 
 @synthesize message = _message;
-@synthesize hasSupportController = _hasSupportController;
+@synthesize hasControllerSupport = _hasControllerSupport;
 
 - (BOOL)isRequestValid {
     BOOL valid = (self.message && [self.message length] > 0);
@@ -65,10 +65,10 @@
 }
 
 - (void)shareViaTwitter:(FTShareTwitterData *)data {
-    if (![data isRequestValid] || [data hasSupportController]) {
+    if (![data isRequestValid] || [data hasControllerSupport]) {
         if (self.twitterDelegate && [self.twitterDelegate respondsToSelector:@selector(twitterData)]) {
             data = [self.twitterDelegate twitterData];
-            if (![data isRequestValid] || [data hasSupportController]) {
+            if (![data isRequestValid] || [data hasControllerSupport]) {
                 FTShareMessageController *messageController = [[FTShareMessageController alloc] initWithMessage:data.message type:FTShareMessageControllerTypeTwitter andelegate:self];
                 UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:messageController];
                 [_referencedController presentModalViewController:nc animated:YES];
@@ -176,7 +176,7 @@
     if (!message || message.length == 0) return;
     FTShareTwitterData *data = [[FTShareTwitterData alloc] init];
     [data setMessage:message];
-    [data setHasSupportController:NO];
+    [data setHasControllerSupport:NO];
     [self shareViaTwitter:data];    
 }
 
