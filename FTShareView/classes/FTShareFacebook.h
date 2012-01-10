@@ -101,6 +101,7 @@ typedef enum {
 
 @property (nonatomic, retain) Facebook *facebook;
 @property (nonatomic, assign) id<FTShareFacebookDelegate> facebookDelegate;
+@property (nonatomic, readonly) FTShareFacebookData *params;
 
 - (void)setUpFacebookWithAppID:(NSString *)appID referencedController:(id)referencedController andDelegate:(id<FTShareFacebookDelegate>)delegate;
 - (void)setUpPermissions:(FTShareFacebookPermission)permission;

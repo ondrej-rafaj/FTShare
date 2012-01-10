@@ -75,7 +75,7 @@
         UIColor *color = (remaining <= ALERT_TWITTER_CHARS)? [UIColor redColor] : [UIColor blackColor];
         [self.charsLeftLabel setTextColor:color];
     }
-    [self.navigationItem.rightBarButtonItem setEnabled:(remaining >= 0)];
+    [self.navigationItem.rightBarButtonItem setEnabled:(remaining >= 0 || (self.type == FTShareMessageControllerTypeFacebook))];
 }
 
 #pragma mark initialize

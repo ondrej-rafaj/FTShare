@@ -105,7 +105,7 @@
     [data setCaption:@"Latest test using Graph"];
     [data setType:FTShareFacebookRequestTypePost];
     [data setHttpType:FTShareFacebookHttpTypePost];
-    [data setHasControllerSupport:YES];
+    [data setHasControllerSupport:YES];  // set to YES to use message controller
     return [data autorelease];
 }
 
@@ -151,7 +151,7 @@
 - (FTShareTwitterData *)twitterData {
     FTShareTwitterData *data = [[FTShareTwitterData alloc] init];
     [data setMessage:@"This guys are crazy for iOS apps! - http://www.fuerteint.com"];
-    [data setHasSupportController:YES];
+    [data setHasSupportController:YES]; // set to YES to use message controller
     return data;
 }
 

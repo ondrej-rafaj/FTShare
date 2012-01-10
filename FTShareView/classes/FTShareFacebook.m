@@ -156,6 +156,7 @@
 
 @synthesize facebook = _facebook;
 @synthesize facebookDelegate = _facebookDelegate;
+@synthesize params = _params;
 
 - (void)setUpFacebookWithAppID:(NSString *)appID referencedController:(id)referencedController andDelegate:(id<FTShareFacebookDelegate>)delegate {
     
@@ -209,8 +210,8 @@
         if (self.facebookDelegate && [self.facebookDelegate respondsToSelector:@selector(facebookShareData)]) {
             data = [self.facebookDelegate facebookShareData];
             if (![data isRequestValid] || [data hasControllerSupport]) {
-                _params = data;
-                FTShareMessageController *messageController = [[FTShareMessageController alloc] initWithMessage:data.message type:FTShareMessageControllerTypeTwitter andelegate:self];
+                _params = [data retain];
+                FTShareMessageController *messageController = [[FTShareMessageController alloc] initWithMessage:data.message type:FTShareMessageControllerTypeFacebook andelegate:self];
                 UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:messageController];
                 [_referencedController presentModalViewController:nc animated:YES];
                 return;
@@ -230,7 +231,7 @@
     if (!path) {
         if (self.facebookDelegate && [self.facebookDelegate respondsToSelector:@selector(facebookPathForRequestofMethodType:)]) {
             path = [self.facebookDelegate facebookPathForRequestofMethodType:&httpMethod];
-            if (!path) [NSException raise:@"Facebook request with not type will have no path either" format:nil];
+            if (!path) [NSException raise:@"Facebook request with no type will have no path either" format:nil];
         }
     }
     
