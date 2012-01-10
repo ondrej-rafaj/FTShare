@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		682C13F5149A1ADB0000FCD3 /* Cornholio.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 682C13F4149A1ADB0000FCD3 /* Cornholio.jpg */; };
 		6868F70A14BB546600AE274B /* FTShareMessageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6868F70914BB546600AE274B /* FTShareMessageController.m */; };
+		6868F73B14BC77A300AE274B /* UIColor+Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 6868F73814BC77A300AE274B /* UIColor+Tools.m */; };
+		6868F73C14BC77A300AE274B /* UIView+Layout.m in Sources */ = {isa = PBXBuildFile; fileRef = 6868F73A14BC77A300AE274B /* UIView+Layout.m */; };
+		6868F73F14BC77C300AE274B /* UIImage+Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 6868F73E14BC77C300AE274B /* UIImage+Tools.m */; };
 		689527AD144ED89A00074F22 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 689527AC144ED89A00074F22 /* UIKit.framework */; };
 		689527AF144ED89A00074F22 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 689527AE144ED89A00074F22 /* Foundation.framework */; };
 		689527B1144ED89A00074F22 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 689527B0144ED89A00074F22 /* CoreGraphics.framework */; };
@@ -108,8 +111,14 @@
 
 /* Begin PBXFileReference section */
 		682C13F4149A1ADB0000FCD3 /* Cornholio.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Cornholio.jpg; sourceTree = "<group>"; };
-		6868F70814BB546600AE274B /* FTShareMessageController.h */ = {isa = PBXFileReference; fileEncoding = 4; path = FTShareMessageController.h; sourceTree = "<group>"; };
+		6868F70814BB546600AE274B /* FTShareMessageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTShareMessageController.h; sourceTree = "<group>"; };
 		6868F70914BB546600AE274B /* FTShareMessageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTShareMessageController.m; sourceTree = "<group>"; };
+		6868F73714BC77A300AE274B /* UIColor+Tools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Tools.h"; sourceTree = "<group>"; };
+		6868F73814BC77A300AE274B /* UIColor+Tools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Tools.m"; sourceTree = "<group>"; };
+		6868F73914BC77A300AE274B /* UIView+Layout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Layout.h"; sourceTree = "<group>"; };
+		6868F73A14BC77A300AE274B /* UIView+Layout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Layout.m"; sourceTree = "<group>"; };
+		6868F73D14BC77C300AE274B /* UIImage+Tools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Tools.h"; sourceTree = "<group>"; };
+		6868F73E14BC77C300AE274B /* UIImage+Tools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Tools.m"; sourceTree = "<group>"; };
 		689527A8144ED89A00074F22 /* FTShareView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FTShareView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		689527AC144ED89A00074F22 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		689527AE144ED89A00074F22 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -332,9 +341,24 @@
 			path = Assets;
 			sourceTree = "<group>";
 		};
+		6868F73614BC77A300AE274B /* categories */ = {
+			isa = PBXGroup;
+			children = (
+				6868F73D14BC77C300AE274B /* UIImage+Tools.h */,
+				6868F73E14BC77C300AE274B /* UIImage+Tools.m */,
+				6868F73714BC77A300AE274B /* UIColor+Tools.h */,
+				6868F73814BC77A300AE274B /* UIColor+Tools.m */,
+				6868F73914BC77A300AE274B /* UIView+Layout.h */,
+				6868F73A14BC77A300AE274B /* UIView+Layout.m */,
+			);
+			name = categories;
+			path = FTShareView/categories;
+			sourceTree = "<group>";
+		};
 		6895279D144ED89A00074F22 = {
 			isa = PBXGroup;
 			children = (
+				6868F73614BC77A300AE274B /* categories */,
 				689528F1144EE0C200074F22 /* ThirdParty */,
 				689527E9144ED91C00074F22 /* classes */,
 				689527B2144ED89A00074F22 /* Controllers */,
@@ -849,6 +873,9 @@
 				A599D890148E3DFC00359F21 /* FTShareFacebook.m in Sources */,
 				A599D897148E6D2700359F21 /* FTShareEmail.m in Sources */,
 				6868F70A14BB546600AE274B /* FTShareMessageController.m in Sources */,
+				6868F73B14BC77A300AE274B /* UIColor+Tools.m in Sources */,
+				6868F73C14BC77A300AE274B /* UIView+Layout.m in Sources */,
+				6868F73F14BC77C300AE274B /* UIImage+Tools.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -940,16 +967,11 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FTShareView/FTShareView-Prefix.pch";
-				HEADER_SEARCH_PATHS = (
-					"\"$(SRCROOT)/../**\"",
-					"${SDKROOT}/usr/include/libxml2/**",
-				);
+				HEADER_SEARCH_PATHS = "${SDKROOT}/usr/include/libxml2/**";
 				INFOPLIST_FILE = "FTShareView/FTShareView-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
 				LIBRARY_SEARCH_PATHS = (
-					"\"$(SRCROOT)/../**\"",
 					"\"$(SRCROOT)/../ThirdParty/Twitter+OAuth/Libraries & Headers\"",
-					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/FTShareView/ThirdParty/Twitter+OAuth/Libraries & Headers\"",
 				);
 				OTHER_LDFLAGS = (
@@ -958,7 +980,7 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
-				USER_HEADER_SEARCH_PATHS = "$(inherited) \"$(SRCROOT)/../**\"";
+				USER_HEADER_SEARCH_PATHS = "$(inherited)";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -968,16 +990,11 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FTShareView/FTShareView-Prefix.pch";
-				HEADER_SEARCH_PATHS = (
-					"\"$(SRCROOT)/../**\"",
-					"${SDKROOT}/usr/include/libxml2/**",
-				);
+				HEADER_SEARCH_PATHS = "${SDKROOT}/usr/include/libxml2/**";
 				INFOPLIST_FILE = "FTShareView/FTShareView-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
 				LIBRARY_SEARCH_PATHS = (
-					"\"$(SRCROOT)/../**\"",
 					"\"$(SRCROOT)/../ThirdParty/Twitter+OAuth/Libraries & Headers\"",
-					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/FTShareView/ThirdParty/Twitter+OAuth/Libraries & Headers\"",
 				);
 				OTHER_LDFLAGS = (
@@ -986,7 +1003,7 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
-				USER_HEADER_SEARCH_PATHS = "$(inherited) \"$(SRCROOT)/../**\"";
+				USER_HEADER_SEARCH_PATHS = "$(inherited)";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
