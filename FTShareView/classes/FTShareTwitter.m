@@ -62,7 +62,7 @@
     self.twitterDelegate = delegate;
     _twitter.consumerKey = consumerKey;  
     _twitter.consumerSecret = secret;
-    [_twitter clearAccessToken];
+    // [_twitter clearAccessToken]; shouldn't clear!
     _twitterParams = nil;
 }
 
@@ -110,8 +110,9 @@
     [defaults synchronize];     
 }
 
-- (NSString *) cachedTwitterOAuthDataForUsername: (NSString *) username {  
-    return [[NSUserDefaults standardUserDefaults] objectForKey: @"twitterAuthData"];  
+- (NSString *) cachedTwitterOAuthDataForUsername: (NSString *) username {
+    NSString *result = [[NSUserDefaults standardUserDefaults] objectForKey: @"twitterAuthData"];
+    return result;  
 }
 
 #pragma mark TwitterEngineDelegate  
