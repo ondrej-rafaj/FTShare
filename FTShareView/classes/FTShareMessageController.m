@@ -55,9 +55,6 @@
             if (range.length > 20) subtruct += (range.length - 20);
         }
         else return (string.length - subtruct);
-        
-        
-        NSLog(@"String  %@", [string substringWithRange:range]);
     }
     
     
