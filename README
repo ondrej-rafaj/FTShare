@@ -11,6 +11,7 @@ Implementation Instructions:
     - use shareViaFacebook/Twitter/Mail with the specific FTShareDataObject or
     - use showActionSheetWithtitle:andOptions: implementing the Facebook/Twitter/MailShareData delegate 
 * on the app-info.plist add the "URL types". Forget to do so and your app will not respond effectively after the facebook login has completed
+* In order to give the ability to the user to edit the message to share use setHasControllerSupport:YES against the data object
 
 Notes:
 FTShare view is constantly developed by FuerteInt.com. Please drop us an email at open-source@fuerteint.com to let us know you are using this component.
