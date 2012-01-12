@@ -9,7 +9,7 @@
 #import "FTShareMessageController.h"
 #import "UIColor+Tools.h"
 
-#define MAX_TWITTER_CHARS   160
+#define MAX_TWITTER_CHARS   140
 #define ALERT_TWITTER_CHARS 10
 
 

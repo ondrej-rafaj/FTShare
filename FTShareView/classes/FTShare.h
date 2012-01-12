@@ -41,8 +41,9 @@ typedef NSUInteger FTShareOptions;
     id _referencedController;
 }
 
-@property (nonatomic, retain) Facebook *facebook; // needs to be pubblic for UIApplication
+@property (nonatomic, retain) Facebook *facebook; // needs to be public for UIApplication
 @property (nonatomic, assign) id referencedController;
+@property (nonatomic, assign) NSString *message;
 
 
 - (id)initWithReferencedController:(id)controller;

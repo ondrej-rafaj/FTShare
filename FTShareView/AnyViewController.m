@@ -33,8 +33,21 @@
     FTShare *share = [self shareInstance];
     
     [share showActionSheetWithtitle:@"Share With" andOptions:FTShareOptionsFacebook|FTShareOptionsTwitter|FTShareOptionsMail];
+	[share setMessage:@"This guys are crazy for iOS apps! - http://www.fuerteint.com"];
 
 }
+
+- (void)shareTwitterButton{
+	//Tied to the button.. will auth then call up the controller
+	
+    FTShare *share = [self shareInstance];
+    FTShareTwitterData *data = [[FTShareTwitterData alloc] init];
+    [data setMessage:@"This button loves Tiwtter as much as these guys! - http://www.fuerteint.com"];
+    [data setHasControllerSupport: YES]; // set to YES to use message controller
+    [share shareViaTwitter:data];
+	
+}
+
 
 - (void)getUSerFriends {
     FTShare *share = [self shareInstance];
@@ -91,6 +104,12 @@
     [btn2 setFrame:CGRectMake(120, 430, 150, 20)];
     [btn2 addTarget:self action:@selector(fbUploadImage) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn2];
+	
+	UIButton *btn3 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [btn3 setTitle:@"Twitter" forState:UIControlStateNormal];
+    [btn3 setFrame:CGRectMake(10, 400, 100, 20)];
+    [btn3 addTarget:self action:@selector(shareTwitterButton) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn3];
     
 }
 
@@ -143,17 +162,6 @@
 }
 
 #pragma mark FTShare Twitter
-
-/**
- * If using Action Sheet this is ised to set the data to share.
- *
- */
-- (FTShareTwitterData *)twitterData {
-    FTShareTwitterData *data = [[FTShareTwitterData alloc] init];
-    [data setMessage:@"This guys are crazy for iOS apps! - http://www.fuerteint.com"];
-    [data setHasControllerSupport: YES]; // set to YES to use message controller
-    return data;
-}
 
 /**
  * Called when Twitter finishes to login. Error is nil for successfull operation

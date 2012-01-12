@@ -11,10 +11,8 @@
 @implementation FTShare
 
 @synthesize facebook;
-
-
-
 @synthesize referencedController = _referencedController;
+@synthesize message = _message;
 
 
 #pragma mark Initialization
@@ -136,7 +134,11 @@
     }
     else  if ([btnText isEqualToString:@"Twitter"]) {
         //implement Twitter
-        [_twitterEngine shareViaTwitter:nil];
+		FTShareTwitterData *data = [[FTShareTwitterData alloc] init];
+		data.message = _message;
+		data.hasControllerSupport = YES;
+		[_twitterEngine shareViaTwitter:data];
+		[data release];
     }
 }
 

@@ -62,23 +62,29 @@
     self.twitterDelegate = delegate;
     _twitter.consumerKey = consumerKey;  
     _twitter.consumerSecret = secret;
-    [_twitter clearAccessToken];
+    //[_twitter clearAccessToken];  remove if testing only
     _twitterParams = nil;
 }
 
+//Decides to show Message controllr or just pass on data to twitter
+- (void)showController:(FTShareTwitterData *)data {
+	
+	if (![data isRequestValid] || [data hasControllerSupport]) {
+		
+		FTShareMessageController *messageController = [[FTShareMessageController alloc] initWithMessage:data.message type:FTShareMessageControllerTypeTwitter andelegate:self];
+		UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:messageController];
+		NSLog(@"before presenting");
+		nc.modalPresentationStyle =  UIModalPresentationFormSheet;
+		[nc setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
+		[_referencedController presentModalViewController:nc animated:YES];
+	}else{
+        [_twitter sendUpdate:data.message];
+	}
+	
+}
+
 - (void)shareViaTwitter:(FTShareTwitterData *)data {
-    if (![data isRequestValid] || [data hasControllerSupport]) {
-        if (self.twitterDelegate && [self.twitterDelegate respondsToSelector:@selector(twitterData)]) {
-            data = [self.twitterDelegate twitterData];
-            if (![data isRequestValid] || [data hasControllerSupport]) {
-                FTShareMessageController *messageController = [[FTShareMessageController alloc] initWithMessage:data.message type:FTShareMessageControllerTypeTwitter andelegate:self];
-                UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:messageController];
-                [_referencedController presentModalViewController:nc animated:YES];
-                return;
-            }
-        }
-        
-    }
+
     _twitterParams = [data retain];
     if(![_twitter isAuthorized]){  
         UIViewController *controller = [SA_OAuthTwitterController controllerToEnterCredentialsWithTwitterEngine:_twitter delegate:self];  
@@ -143,7 +149,9 @@
     if ([self.twitterDelegate respondsToSelector:@selector(twitterDidLogin:)]) {
         [self.twitterDelegate twitterDidLogin:nil];
     }
-    [self shareViaTwitter:_twitterParams];
+	//need to wait a little after the dismiss from SA_OAuthTwitterController
+	[self performSelector:@selector(showController:) withObject:_twitterParams afterDelay:1.5];
+
 }
 
 - (void)OAuthTwitterControllerFailed:(SA_OAuthTwitterController *)controller {
