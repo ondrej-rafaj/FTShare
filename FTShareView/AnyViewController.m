@@ -101,6 +101,7 @@
  */
 - (FTShareFacebookData *)facebookShareData {
     FTShareFacebookData *data = [[FTShareFacebookData alloc] init];
+    [data setMessage:@"Those guys are crazy to get FAcebook on iOS Apps!"];
     [data setLink:@"http://www.fuerteint.com"];
     [data setCaption:@"Latest test using Graph"];
     [data setType:FTShareFacebookRequestTypePost];

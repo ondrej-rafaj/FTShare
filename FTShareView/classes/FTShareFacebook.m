@@ -207,33 +207,38 @@
 
 
 - (void)shareViaFacebook:(FTShareFacebookData *)data {
-    if (![data isRequestValid] || [data hasControllerSupport]) {
-        if (self.facebookDelegate && [self.facebookDelegate respondsToSelector:@selector(facebookShareData)]) {
-            data = [self.facebookDelegate facebookShareData];
-            if (![data isRequestValid] || [data hasControllerSupport]) {
-                _params = [data retain];
-                FTShareMessageController *messageController = [[FTShareMessageController alloc] initWithMessage:data.message type:FTShareMessageControllerTypeFacebook andelegate:self];
-                UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:messageController];
-                [_referencedController presentModalViewController:nc animated:YES];
-                return;
-            }
-        }
-    }
-    _params = [data retain];
+    
+    if (data) _params = [data retain];
+    
+    //check login
     if (![_facebook isSessionValid]) {
         [self authorize];
+        return;
     }
     
+    // gather delegate data
+    if (![_params isRequestValid] && self.facebookDelegate && [self.facebookDelegate respondsToSelector:@selector(facebookShareData)]) {
+        _params = [[self.facebookDelegate facebookShareData] retain];
+    }
+    
+    //use Message Controller
+    
+    
+    if ([_params hasControllerSupport]) {
+        FTShareMessageController *messageController = [[FTShareMessageController alloc] initWithMessage:_params.message type:FTShareMessageControllerTypeFacebook andelegate:self];
+        UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:messageController];
+        [_referencedController presentModalViewController:nc animated:YES];
+        return;
+    }
+
+    // preapare for sending
     // check http method
     NSString *httpMethod = [_params graphHttpTypeString];
-    
     //check path
     NSString *path = [_params graphPathForType];
-    if (!path) {
-        if (self.facebookDelegate && [self.facebookDelegate respondsToSelector:@selector(facebookPathForRequestofMethodType:)]) {
-            path = [self.facebookDelegate facebookPathForRequestofMethodType:&httpMethod];
-            if (!path) [NSException raise:@"Facebook request with no type will have no path either" format:@""];
-        }
+    if (!path && self.facebookDelegate && [self.facebookDelegate respondsToSelector:@selector(facebookPathForRequestofMethodType:)]) {
+        path = [self.facebookDelegate facebookPathForRequestofMethodType:&httpMethod];
+        if (!path) [NSException raise:@"Facebook request with no type will have no path either" format:@""];
     }
     
     [_facebook requestWithGraphPath:path andParams:[_params dictionaryFromParams] andHttpMethod:httpMethod andDelegate:self];
@@ -273,10 +278,8 @@
         [self.facebookDelegate facebookDidLogin:nil];
     }
     
-    if (_params) {
-        [self shareViaFacebook:_params];
-    }
-    
+    //attempt sharing, _params may be nil!
+    [self shareViaFacebook:_params];
 }
 
 -(void)fbDidNotLogin:(BOOL)cancelled {
