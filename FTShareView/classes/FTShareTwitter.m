@@ -66,7 +66,21 @@
     _twitterParams = nil;
 }
 
+
+
 - (void)shareViaTwitter:(FTShareTwitterData *)data {
+    
+    _twitterParams = [data retain];
+    if(![_twitter isAuthorized]){  
+        UIViewController *controller = [SA_OAuthTwitterController controllerToEnterCredentialsWithTwitterEngine:_twitter delegate:self];  
+        
+        if (controller && _referencedController){  
+            [controller setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
+            [(UIViewController *)_referencedController presentModalViewController:controller animated:YES];
+            return;
+        }
+    }
+    
     if (![data isRequestValid] || [data hasControllerSupport]) {
         if (self.twitterDelegate && [self.twitterDelegate respondsToSelector:@selector(twitterData)]) {
             data = [self.twitterDelegate twitterData];
@@ -79,19 +93,11 @@
         }
         
     }
-    _twitterParams = [data retain];
-    if(![_twitter isAuthorized]){  
-        UIViewController *controller = [SA_OAuthTwitterController controllerToEnterCredentialsWithTwitterEngine:_twitter delegate:self];  
-        
-        if (controller && _referencedController){  
-            [controller setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
-            [(UIViewController *)_referencedController presentModalViewController:controller animated:YES];
-        }
-    }
-    else {
-        if (![_twitterParams isRequestValid]) return;
-        [_twitter sendUpdate:_twitterParams.message];
-    }
+    
+    //send notification
+    if (![_twitterParams isRequestValid]) return;
+    [_twitter sendUpdate:_twitterParams.message];
+    
 }
 
 #pragma mark SA_OAuthTwitterEngineDelegate 
@@ -144,7 +150,8 @@
     if ([self.twitterDelegate respondsToSelector:@selector(twitterDidLogin:)]) {
         [self.twitterDelegate twitterDidLogin:nil];
     }
-    [self shareViaTwitter:_twitterParams];
+    [self performSelector:@selector(shareViaTwitter:) withObject:_twitterParams afterDelay:2];
+    //[self shareViaTwitter:_twitterParams];
 }
 
 - (void)OAuthTwitterControllerFailed:(SA_OAuthTwitterController *)controller {
