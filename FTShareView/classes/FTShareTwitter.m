@@ -70,29 +70,32 @@
 
 - (void)shareViaTwitter:(FTShareTwitterData *)data {
     
-    _twitterParams = [data retain];
+    if (data) _twitterParams = [data retain];
+    
+    //check if Twitter is authorized
     if(![_twitter isAuthorized]){  
         UIViewController *controller = [SA_OAuthTwitterController controllerToEnterCredentialsWithTwitterEngine:_twitter delegate:self];  
         
-        if (controller && _referencedController){  
-            [controller setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
-            [(UIViewController *)_referencedController presentModalViewController:controller animated:YES];
-            return;
-        }
+        if (!controller || !_referencedController) return;
+        
+        [controller setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
+        [(UIViewController *)_referencedController presentModalViewController:controller animated:YES];
+        return;
     }
     
-    if (![data isRequestValid] || [data hasControllerSupport]) {
-        if (self.twitterDelegate && [self.twitterDelegate respondsToSelector:@selector(twitterData)]) {
-            data = [self.twitterDelegate twitterData];
-            if (![data isRequestValid] || [data hasControllerSupport]) {
-                FTShareMessageController *messageController = [[FTShareMessageController alloc] initWithMessage:data.message type:FTShareMessageControllerTypeTwitter andelegate:self];
-                UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:messageController];
-                [_referencedController presentModalViewController:nc animated:YES];
-                return;
-            }
-        }
-        
+    //use delegate method to require data
+    if(![_twitterParams isRequestValid] && self.twitterDelegate && [self.twitterDelegate respondsToSelector:@selector(twitterData)]) {
+        _twitterParams = [self.twitterDelegate twitterData];
     }
+    
+    //check if should use Message Controller
+    if ([_twitterParams hasControllerSupport]) {
+        FTShareMessageController *messageController = [[FTShareMessageController alloc] initWithMessage:_twitterParams.message type:FTShareMessageControllerTypeTwitter andelegate:self];
+        UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:messageController];
+        [_referencedController presentModalViewController:nc animated:YES];
+        return;
+    } 
+    
     
     //send notification
     if (![_twitterParams isRequestValid]) return;
